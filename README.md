@@ -1,6 +1,6 @@
 # 🎮 Santivilla - Ranking por una Causa
 
-Una aplicación web donde los usuarios pagan dinero real para subir en un ranking público. El **70% de todos los ingresos se dona a refugios de animales**, mientras que el 30% restante mantiene y hace crecer la plataforma.
+Una aplicación web donde los usuarios pagan dinero real para subir en un ranking público. El **~95% de todos los ingresos se dona a refugios de animales** (comisión variable: 1.50€ fijos + 5%), mientras que el resto mantiene y hace crecer la plataforma.
 
 ## 🎯 Características Principales
 

@@ -14,8 +14,21 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Santivilla - Ranking por una Causa",
-  description: "Paga para subir en el ranking. El 70% de todo lo recaudado se dona a refugios de animales.",
+  title: "Santivilla - Ranking por una Causa | 95% para Animales",
+  description: "Compite por ser #1 en el ranking. El 95% de tu dinero va directo a refugios de animales. Solo cobramos 1.50€ fijos + 5% para mantener la plataforma.",
+  keywords: ["donación animales", "refugio animales", "ranking solidario", "ayuda animal", "Santivilla"],
+  authors: [{ name: "Santivilla" }],
+  openGraph: {
+    title: "Santivilla - Ranking por una Causa",
+    description: "El 95% de tu dinero va directo a refugios de animales. Compite por ser #1.",
+    type: "website",
+    locale: "es_ES",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Santivilla - Ranking por una Causa",
+    description: "El 95% de tu dinero va directo a refugios de animales.",
+  },
 };
 
 export default function RootLayout({

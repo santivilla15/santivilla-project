@@ -139,6 +139,12 @@ export default function ImpactoPage() {
         {error && (
           <div className="bg-red-900/30 border border-red-500/50 rounded-md p-4 text-red-400 text-center mb-8 max-w-2xl mx-auto">
             {error}
+            {error.includes('Supabase') && (
+              <div className="mt-3 text-sm text-red-300">
+                <p>La base de datos aún no está configurada.</p>
+                <p className="text-xs mt-1">Consulta CONFIGURACION.md para configurar Supabase.</p>
+              </div>
+            )}
           </div>
         )}
 

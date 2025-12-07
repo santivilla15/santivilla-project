@@ -54,7 +54,11 @@ export default function BoostForm() {
 
       // Si hay un error en la respuesta
       if (!response.ok) {
-        throw new Error(data.error || 'Error al crear la sesión de pago')
+        const errorMsg = data.error || 'Error al crear la sesión de pago'
+        if (errorMsg.includes('Stripe') || errorMsg.includes('STRIPE')) {
+          throw new Error('Error de configuración de Stripe. Verifica las claves en .env.local')
+        }
+        throw new Error(errorMsg)
       }
 
       // Si se creó correctamente, redirigir a Stripe Checkout
