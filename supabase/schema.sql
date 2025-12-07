@@ -1,0 +1,60 @@
+-- Schema de la base de datos para Santivilla
+-- Ejecuta este SQL en tu proyecto de Supabase (SQL Editor)
+
+-- Tabla de usuarios en el ranking
+CREATE TABLE IF NOT EXISTS ranking_users (
+  id UUID DEFAULT gen_random_uuid() PRIMARY KEY,
+  name TEXT NOT NULL, -- Nombre público del usuario
+  score DECIMAL(10, 2) NOT NULL DEFAULT 0, -- Puntos totales (1 punto = 1 euro)
+  created_at TIMESTAMP WITH TIME ZONE DEFAULT TIMEZONE('utc', NOW()) NOT NULL,
+  updated_at TIMESTAMP WITH TIME ZONE DEFAULT TIMEZONE('utc', NOW()) NOT NULL
+);
+
+-- Tabla de pagos individuales
+CREATE TABLE IF NOT EXISTS payments (
+  id UUID DEFAULT gen_random_uuid() PRIMARY KEY,
+  user_name TEXT NOT NULL, -- Nombre del usuario que realizó el pago
+  total_amount DECIMAL(10, 2) NOT NULL, -- Monto total pagado en euros
+  donation_amount DECIMAL(10, 2) NOT NULL, -- Monto destinado a animales (varía según comisiones)
+  platform_amount DECIMAL(10, 2) NOT NULL, -- Monto destinado a la plataforma (varía según comisiones)
+  fixed_fee DECIMAL(10, 2) NOT NULL DEFAULT 1.50, -- Comisión fija (1.50€)
+  variable_fee DECIMAL(10, 2) NOT NULL DEFAULT 0, -- Comisión variable (5% sobre lo restante)
+  stripe_payment_intent_id TEXT, -- ID del payment intent de Stripe
+  created_at TIMESTAMP WITH TIME ZONE DEFAULT TIMEZONE('utc', NOW()) NOT NULL
+);
+
+-- Índices para mejorar el rendimiento de las consultas
+CREATE INDEX IF NOT EXISTS idx_ranking_users_score ON ranking_users(score DESC);
+CREATE INDEX IF NOT EXISTS idx_ranking_users_name ON ranking_users(name);
+CREATE INDEX IF NOT EXISTS idx_payments_created_at ON payments(created_at DESC);
+
+-- Función para actualizar el campo updated_at automáticamente
+CREATE OR REPLACE FUNCTION update_updated_at_column()
+RETURNS TRIGGER AS $$
+BEGIN
+  NEW.updated_at = TIMEZONE('utc', NOW());
+  RETURN NEW;
+END;
+$$ language 'plpgsql';
+
+-- Trigger para actualizar updated_at en ranking_users
+CREATE TRIGGER update_ranking_users_updated_at 
+  BEFORE UPDATE ON ranking_users
+  FOR EACH ROW
+  EXECUTE FUNCTION update_updated_at_column();
+
+-- Habilitar Row Level Security (RLS) para que solo se puedan leer los datos públicamente
+-- pero solo el servidor puede escribir (esto se configura en las políticas de Supabase)
+
+-- Política para permitir lectura pública del ranking
+ALTER TABLE ranking_users ENABLE ROW LEVEL SECURITY;
+ALTER TABLE payments ENABLE ROW LEVEL SECURITY;
+
+-- Crear políticas básicas (estas deben ajustarse según tu configuración de Supabase)
+-- Nota: En producción, deberás crear estas políticas desde el dashboard de Supabase
+-- o usando el cliente de Supabase con un usuario con permisos de servicio
+
+-- Ejemplo de política para lectura pública (ejecutar en SQL Editor de Supabase):
+-- CREATE POLICY "Allow public read access" ON ranking_users FOR SELECT USING (true);
+-- CREATE POLICY "Allow public read access" ON payments FOR SELECT USING (true);
+
