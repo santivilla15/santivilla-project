@@ -76,18 +76,34 @@ function HomeContent() {
           </p>
         </div>
 
-        {/* Botón para ver el ranking */}
-        <div className="text-center mb-12">
-          <Link
-            href="/ranking"
-            className="inline-block px-8 py-4 bg-green-500 hover:bg-green-600 text-black font-bold text-lg rounded-md transition-colors shadow-lg shadow-green-500/50"
-          >
-            Entrar al ranking
-          </Link>
+        {/* Botones CTA */}
+        <div className="text-center mb-12 space-y-4">
+          {/* Botón principal - lleva al formulario de boost */}
+          <div>
+            <a
+              href="#boost-form"
+              className="inline-block px-8 py-4 bg-green-500 hover:bg-green-600 text-black font-bold text-lg rounded-md transition-colors shadow-lg shadow-green-500/50"
+              onClick={(e) => {
+                e.preventDefault()
+                document.getElementById('boost-form')?.scrollIntoView({ behavior: 'smooth' })
+              }}
+            >
+              Entrar al ranking
+            </a>
+          </div>
+          {/* Botón secundario - ver ranking actual */}
+          <div>
+            <Link
+              href="/ranking"
+              className="inline-block px-6 py-3 border-2 border-green-500/50 hover:border-green-500 text-green-400 hover:text-green-300 font-semibold text-base rounded-md transition-colors"
+            >
+              Ver ranking actual
+            </Link>
+          </div>
         </div>
 
         {/* Formulario de boost */}
-        <div className="max-w-2xl mx-auto mb-16">
+        <div id="boost-form" className="max-w-2xl mx-auto mb-16 scroll-mt-24">
           <BoostForm />
         </div>
 

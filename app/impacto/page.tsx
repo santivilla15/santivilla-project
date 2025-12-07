@@ -8,6 +8,7 @@ import { TotalStats } from '@/lib/types/database'
 import StatsCards from '../components/StatsCards'
 import PieChart from '../components/PieChart'
 import ExampleTable from './components/ExampleTable'
+import RecentDonationsSection from './components/RecentDonationsSection'
 
 export default function ImpactoPage() {
   // Estado para almacenar las estadísticas
@@ -68,7 +69,7 @@ export default function ImpactoPage() {
         {/* Título de la página */}
         <div className="text-center mb-12">
           <h1 className="text-4xl md:text-6xl font-bold text-green-400 mb-4 text-glow">
-            ¿Por qué el 30%?
+            📊 Transparencia en Donaciones
           </h1>
           <p className="text-gray-400 text-lg max-w-3xl mx-auto mb-6">
             Aquí puedes ver exactamente cómo se distribuye cada euro que recibimos
@@ -76,55 +77,50 @@ export default function ImpactoPage() {
           {/* Texto explicativo */}
           <div className="bg-gray-900/50 border border-green-500/30 rounded-lg p-6 max-w-4xl mx-auto text-left space-y-4">
             <div>
-              <h3 className="text-xl font-bold text-green-400 mb-3">¿Por qué Santivilla cobra comisiones?</h3>
+              <p className="text-gray-300 leading-relaxed mb-4">
+                Entendemos que quieres saber exactamente dónde va tu dinero. Aquí está la verdad.
+              </p>
+              
               <p className="text-gray-300 leading-relaxed mb-3">
                 Cada pago tiene un costo real:
               </p>
-              <ul className="list-disc list-inside text-gray-300 space-y-1 ml-4 mb-3">
+              <ul className="list-disc list-inside text-gray-300 space-y-2 ml-4 mb-4">
                 <li>Stripe (pasarela de pagos): ~2.9% + 0.30€</li>
-                <li>Servidores: ~200€/mes (dividido entre usuarios)</li>
+                <li>Servidores: ~200€/mes (dividido entre todos los usuarios)</li>
                 <li>Equipo: desarrollo, videos de YouTube, contacto con refugios</li>
               </ul>
-              <p className="text-gray-300 leading-relaxed mb-3">
+              
+              <p className="text-gray-300 leading-relaxed mb-4">
                 En lugar de cobrar lo que cuesta realmente (~5-8%), elegimos ser justos:
               </p>
-              <div className="bg-green-900/20 border border-green-500/30 rounded p-4 my-3">
-                <p className="text-green-400 font-bold mb-2">📊 Modelo de Comisiones Justas:</p>
-                <ul className="list-disc list-inside text-gray-300 space-y-1 ml-4">
-                  <li><span className="text-green-400 font-semibold">Comisión fija:</span> 1.50€ (cubre el costo mínimo de procesar tu pago)</li>
-                  <li><span className="text-green-400 font-semibold">Comisión variable:</span> 5% (reinversión en crecer)</li>
-                </ul>
-                <p className="text-green-400 font-bold mt-3 text-center">
-                  Resultado: ~95% a animales, ~5% a mantener Santivilla
+              
+              <ul className="list-disc list-inside text-gray-300 space-y-2 ml-4 mb-4">
+                <li><span className="text-green-400 font-semibold">Comisión fija:</span> 1.50€ (cubre el costo mínimo de procesar tu pago)</li>
+                <li><span className="text-green-400 font-semibold">Comisión variable:</span> 5% (reinversión en crecer)</li>
+              </ul>
+              
+              <div className="bg-green-900/20 border border-green-500/30 rounded p-4 my-4">
+                <p className="text-green-400 font-bold text-center text-lg mb-2">
+                  📊 Resultado: ~95% a animales, ~5% a mantener Santivilla
                 </p>
               </div>
+              
+              <p className="text-gray-300 leading-relaxed mb-4">
+                <strong>Nuestro objetivo:</strong> Cuando seamos sostenibles con sponsors y YouTube, bajar esto a 2-3% y eventualmente 0%.
+              </p>
+              
               <p className="text-gray-300 leading-relaxed">
                 <strong>La comisión es variable:</strong> cuanto más donas, menor es el porcentaje que cobra Santivilla.
               </p>
             </div>
-            <p className="text-green-400 text-sm italic border-t border-green-500/20 pt-4">
-              💡 <strong>Nuestro objetivo:</strong> Cuando seamos sostenibles con sponsors y YouTube, bajar esto a 2-3% y eventualmente 0%.
-            </p>
           </div>
         </div>
 
-        {/* Imagen de impacto */}
-        <div className="flex justify-center mb-12">
-          <div className="relative w-full max-w-2xl h-64 md:h-96 rounded-lg overflow-hidden border-2 border-green-500/30 shadow-lg shadow-green-500/20">
-            <Image
-              src="https://images.unsplash.com/photo-1605568427561-40dd23c2acea?w=1200&h=600&fit=crop"
-              alt="Animales siendo ayudados"
-              fill
-              className="object-cover"
-              sizes="(max-width: 768px) 100vw, 1200px"
-            />
-            <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent flex items-end">
-              <div className="p-6 text-white">
-                <p className="text-xl md:text-2xl font-bold mb-2">Tu ayuda hace la diferencia</p>
-                <p className="text-sm md:text-base text-gray-300">Cada contribución ayuda a animales necesitados</p>
-              </div>
-            </div>
-          </div>
+        {/* Sección de explicación de comisiones */}
+        <div className="mb-12">
+          <h2 className="text-3xl md:text-4xl font-bold text-green-400 mb-6 text-center">
+            ¿Por qué Santivilla cobra comisiones?
+          </h2>
         </div>
 
         {/* Mostrar estado de carga */}
@@ -242,10 +238,13 @@ export default function ImpactoPage() {
               )}
             </div>
 
+            {/* Donaciones recientes */}
+            <RecentDonationsSection />
+
             {/* Sección de videos (placeholder para futuro) */}
             <div className="bg-gray-900 border border-green-500/30 rounded-lg p-8 mb-12">
               <h2 className="text-2xl font-bold text-green-400 mb-6 text-center">
-                Donaciones en Acción
+                📹 Ver cómo usamos cada donación en YouTube
               </h2>
               <div className="text-center text-gray-400 py-8">
                 <p className="mb-6 text-lg">

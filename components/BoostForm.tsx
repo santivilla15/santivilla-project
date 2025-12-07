@@ -3,7 +3,7 @@
 // Componente del formulario para realizar un boost (pago)
 import { useState } from 'react'
 import { isValidName, isValidAmount, formatCurrency } from '@/lib/utils/validation'
-import { calculateCommissions, FIXED_COMMISSION, VARIABLE_COMMISSION_RATE } from '@/lib/utils/commission'
+import { calculateCommissions } from '@/lib/utils/commission'
 
 export default function BoostForm() {
   // Estados para el nombre y el monto
@@ -150,34 +150,37 @@ export default function BoostForm() {
 
         {/* Texto informativo sobre el reparto con nuevo modelo */}
         {amount >= 1 && (
-          <div className="bg-gray-800/50 border border-green-500/20 rounded-md p-4 space-y-2">
+          <div className="bg-gray-800/50 border border-green-500/20 rounded-md p-4 space-y-3">
             {(() => {
               const commission = calculateCommissions(amount)
               return (
                 <>
                   <div className="text-center">
-                    <p className="text-sm text-gray-300 mb-2">
-                      De <span className="text-white font-bold">{formatCurrency(amount)}</span>:
+                    <p className="text-sm text-gray-300 mb-3">
+                      De <span className="text-white font-bold text-base">{formatCurrency(amount)}</span>:
                     </p>
-                    <p className="text-lg text-green-400 font-bold">
-                      {formatCurrency(commission.donationAmount)} van a animales 🐾
-                    </p>
-                    <p className="text-xs text-gray-400 mt-1">
-                      ({commission.donationPercentage}% del total)
+                    <div className="flex items-center justify-center gap-2 mb-2">
+                      <span className="text-2xl">✅</span>
+                      <p className="text-lg text-green-400 font-bold">
+                        {formatCurrency(commission.donationAmount)} van a animales
+                      </p>
+                      <span className="text-lg">🐾</span>
+                    </div>
+                    <p className="text-sm text-green-400 font-semibold">
+                      ({commission.donationPercentage}%)
                     </p>
                   </div>
-                  <div className="border-t border-gray-700 pt-2 mt-2">
-                    <p className="text-xs text-gray-400 text-center">
-                      Costos ({formatCurrency(FIXED_COMMISSION)} fijos + {(VARIABLE_COMMISSION_RATE * 100).toFixed(0)}% procesamiento):{' '}
-                      <span className="text-gray-300">{formatCurrency(commission.totalPlatformFee)}</span>
-                    </p>
+                  <div className="border-t border-gray-700 pt-3 mt-3">
+                    <div className="flex items-center justify-center gap-2">
+                      <span className="text-xl">💚</span>
+                      <p className="text-sm text-gray-400">
+                        Costos Santivilla: <span className="text-gray-300 font-semibold">{formatCurrency(commission.totalPlatformFee)}</span>
+                      </p>
+                    </div>
                     <p className="text-xs text-gray-500 text-center mt-1">
-                      ({commission.platformPercentage}% del total)
+                      ({commission.platformPercentage}%)
                     </p>
                   </div>
-                  <p className="text-xs text-green-400/80 text-center mt-2 italic">
-                    💡 Cuanto más donas, menor es el porcentaje que cobra Santivilla
-                  </p>
                 </>
               )
             })()}
