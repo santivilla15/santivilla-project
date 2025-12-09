@@ -12,10 +12,6 @@ const nextConfig: NextConfig = {
       },
     ],
   },
-  // Desactivar Turbopack y usar webpack para evitar problemas de build
-  experimental: {
-    turbo: undefined,
-  },
 };
 
 export default nextConfig;
