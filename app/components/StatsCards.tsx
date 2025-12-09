@@ -1,11 +1,34 @@
 // Componente para mostrar tarjetas de estadísticas
 'use client'
 
+import { usePathname } from 'next/navigation'
+
 interface StatsCardsProps {
   totalRecaudado: number
   totalDonado: number
   totalPlataforma: number
   formatCurrency: (amount: number) => string
+}
+
+const translations = {
+  es: {
+    totalRaised: 'Total Recaudado',
+    donatedToAnimals: 'Donado a Animales',
+    forPlatform: 'Para la Plataforma',
+    ofTotal: 'del total',
+  },
+  en: {
+    totalRaised: 'Total Raised',
+    donatedToAnimals: 'Donated to Animals',
+    forPlatform: 'For Platform',
+    ofTotal: 'of total',
+  },
+  de: {
+    totalRaised: 'Gesamt gesammelt',
+    donatedToAnimals: 'An Tiere gespendet',
+    forPlatform: 'Für die Plattform',
+    ofTotal: 'vom Gesamtbetrag',
+  },
 }
 
 export default function StatsCards({
@@ -14,35 +37,42 @@ export default function StatsCards({
   totalPlataforma,
   formatCurrency,
 }: StatsCardsProps) {
+  const pathname = usePathname()
+  const lang = pathname.startsWith('/en') ? 'en' : pathname.startsWith('/de') ? 'de' : 'es'
+  const t = translations[lang]
   return (
     <div className="grid md:grid-cols-3 gap-6 mb-12">
       {/* Total Recaudado */}
-      <div className="bg-gray-900 border border-green-500/30 rounded-lg p-8 text-center hover:border-green-500/50 transition-colors">
+      <div className="bg-[var(--color-background)] border border-[var(--color-border-dark)] rounded-lg p-8 text-center hover:border-[var(--color-primary)] transition-colors shadow-sm">
         <div className="text-4xl mb-3">💰</div>
-        <div className="text-3xl font-bold text-white mb-2">
+        <div className="text-3xl font-bold text-[var(--color-primary)] mb-2">
           {formatCurrency(totalRecaudado)}
         </div>
-        <div className="text-gray-400">Total Recaudado</div>
+        <div className="text-[var(--color-text-secondary)]">{t.totalRaised}</div>
       </div>
 
-      {/* Total Donado (70%) */}
-      <div className="bg-gray-900 border border-green-500/30 rounded-lg p-8 text-center hover:border-green-500/50 transition-colors">
+      {/* Total Donado */}
+      <div className="bg-[var(--color-background)] border border-[var(--color-border-dark)] rounded-lg p-8 text-center hover:border-[var(--color-secondary)] transition-colors shadow-sm">
         <div className="text-4xl mb-3">🐾</div>
-        <div className="text-3xl font-bold text-green-400 mb-2">
+        <div className="text-3xl font-bold text-[var(--color-secondary)] mb-2">
           {formatCurrency(totalDonado)}
         </div>
-        <div className="text-gray-400">Donado a Animales</div>
-        <div className="text-xs text-green-400 mt-2 font-semibold">(70% del total)</div>
+        <div className="text-[var(--color-text-secondary)]">{t.donatedToAnimals}</div>
+        <div className="text-xs text-[var(--color-secondary)] mt-2 font-semibold">
+          ({totalRecaudado > 0 ? ((totalDonado / totalRecaudado) * 100).toFixed(1) : '95'}% {t.ofTotal})
+        </div>
       </div>
 
-      {/* Total Plataforma (30%) */}
-      <div className="bg-gray-900 border border-gray-500/30 rounded-lg p-8 text-center hover:border-gray-500/50 transition-colors">
+      {/* Total Plataforma */}
+      <div className="bg-[var(--color-background)] border border-[var(--color-border-dark)] rounded-lg p-8 text-center hover:border-[var(--color-primary)] transition-colors shadow-sm">
         <div className="text-4xl mb-3">⚙️</div>
-        <div className="text-3xl font-bold text-gray-400 mb-2">
+        <div className="text-3xl font-bold text-[var(--color-primary)] mb-2">
           {formatCurrency(totalPlataforma)}
         </div>
-        <div className="text-gray-400">Para la Plataforma</div>
-        <div className="text-xs text-gray-500 mt-2">(30% del total)</div>
+        <div className="text-[var(--color-text-secondary)]">{t.forPlatform}</div>
+        <div className="text-xs text-[var(--color-text-secondary)] mt-2">
+          ({totalRecaudado > 0 ? ((totalPlataforma / totalRecaudado) * 100).toFixed(1) : '5'}% {t.ofTotal})
+        </div>
       </div>
     </div>
   )

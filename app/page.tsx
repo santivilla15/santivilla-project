@@ -2,23 +2,33 @@
 'use client'
 
 import { useEffect, useState, Suspense } from 'react'
-import { useSearchParams } from 'next/navigation'
+import { useSearchParams, usePathname } from 'next/navigation'
 import Image from 'next/image'
 import BoostForm from '@/components/BoostForm'
 import Link from 'next/link'
-
+import Top3Preview from '@/app/components/Top3Preview'
+import RescueStories from '@/app/components/RescueStories'
+import AnimatedCounter from '@/app/components/AnimatedCounter'
+import { trackCheckoutCancelled } from '@/app/components/Analytics'
 // Componente interno que usa useSearchParams
 function HomeContent() {
+  const pathname = usePathname()
+  
   // Obtener los parámetros de la URL para detectar cancelaciones
   const searchParams = useSearchParams()
   const canceled = searchParams?.get('canceled') === 'true'
   
   // Estado para mostrar el mensaje de cancelación
   const [showCanceled, setShowCanceled] = useState(canceled || false)
+  // Estado para las estadísticas totales (para el badge de social proof)
+  const [totalDonated, setTotalDonated] = useState(0)
 
-  // Ocultar el mensaje de cancelación después de 5 segundos
+  // Ocultar el mensaje de cancelación después de 5 segundos y rastrear cancelación
   useEffect(() => {
     if (showCanceled) {
+      // Rastrear cancelación de checkout en Google Analytics
+      trackCheckoutCancelled()
+      
       const timer = setTimeout(() => {
         setShowCanceled(false)
         // Limpiar el query param de la URL sin recargar
@@ -32,22 +42,46 @@ function HomeContent() {
     }
   }, [showCanceled])
 
+  // Obtener el total donado para el badge de social proof
+  useEffect(() => {
+    const fetchStats = async () => {
+      try {
+        const controller = new AbortController()
+        const timeoutId = setTimeout(() => controller.abort(), 5000)
+        
+        const response = await fetch('/api/stats', {
+          signal: controller.signal,
+        })
+        
+        clearTimeout(timeoutId)
+        
+        if (response.ok) {
+          const data = await response.json()
+          setTotalDonated(data.total_donado || 0)
+        }
+      } catch (error) {
+        console.error('Error obteniendo estadísticas:', error)
+      }
+    }
+    fetchStats()
+  }, [])
+
   return (
-    <div className="min-h-screen bg-black text-white">
+    <div className="min-h-screen bg-[var(--color-background)] text-[var(--color-text)]">
       {/* Hero Section - Sección principal de la landing */}
       <div className="container mx-auto px-4 py-16 md:py-24">
         {/* Mostrar mensaje si el pago fue cancelado */}
         {showCanceled && (
           <div className="max-w-2xl mx-auto mb-8">
-            <div className="bg-yellow-900/30 border border-yellow-500/50 rounded-md p-4 text-yellow-400 text-center">
+            <div className="bg-[#FFF4E6] border border-[var(--color-secondary)] rounded-md p-4 text-[var(--color-secondary)] text-center">
               ⚠️ El pago fue cancelado. Puedes intentar de nuevo cuando quieras.
             </div>
           </div>
         )}
 
-        {/* Imagen hero de animal */}
+        {/* Imagen hero de animal con overlay mejorado */}
         <div className="flex justify-center mb-8">
-          <div className="relative w-full max-w-md h-64 md:h-80 rounded-lg overflow-hidden border-2 border-green-500/30 shadow-lg shadow-green-500/20">
+          <div className="relative w-full max-w-2xl h-64 md:h-96 rounded-lg overflow-hidden border-2 border-[var(--color-border-dark)] shadow-lg">
             <Image
               src="https://images.unsplash.com/photo-1601758228041-f3b2795255f1?w=800&h=600&fit=crop"
               alt="Animales esperando un hogar"
@@ -56,50 +90,93 @@ function HomeContent() {
               priority
               sizes="(max-width: 768px) 100vw, 800px"
             />
-            <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
+            {/* Overlay con gradiente blanco → transparente para mejor legibilidad */}
+            <div className="absolute inset-0 bg-gradient-to-t from-white/90 via-white/50 to-transparent"></div>
+            {/* Badge de social proof sobre la imagen */}
+            {totalDonated > 0 && (
+              <div className="absolute top-4 right-4 bg-[var(--color-secondary)] text-white px-4 py-2 rounded-full shadow-lg font-bold text-sm md:text-base animate-fade-in">
+                <AnimatedCounter value={totalDonated} duration={2000} />€ donados
+              </div>
+            )}
           </div>
         </div>
 
-        {/* Título principal con efecto de brillo */}
+        {/* Título principal */}
         <div className="text-center mb-12">
-          <h1 className="text-4xl md:text-6xl font-bold mb-6 text-green-400 text-glow">
-            Sé #1 en el ranking.
+          <h1 className="text-4xl md:text-6xl font-bold mb-6 text-[var(--color-primary)] text-glow">
+            Sé #1 en el Ranking Solidario
           </h1>
-          <h2 className="text-3xl md:text-5xl font-bold mb-8 text-white">
-            Ayuda animales al mismo tiempo.
+          <h2 className="text-3xl md:text-5xl font-bold mb-8 text-[var(--color-text)]">
+            Compite mientras ayudas a animales
           </h2>
           
+          {/* Tagline prominente - más grande y en coral */}
+          <p className="text-2xl md:text-3xl font-bold text-[var(--color-secondary)] max-w-3xl mx-auto mb-6 animate-fade-in">
+            🐾 El 95% de tu donación va directo a refugios
+          </p>
+          
           {/* Subtítulo explicativo */}
-          <p className="text-lg md:text-xl text-gray-300 max-w-2xl mx-auto mb-4">
-            Paga para subir puestos. El <span className="text-green-400 font-bold">95%</span> de tu dinero va directo a animales. 
-            Solo cobramos una comisión pequeña (<span className="text-green-400">1.50 € fijos + 5%</span>) para mantener los servidores y crecer.
+          <p className="text-lg md:text-xl text-[var(--color-text-secondary)] max-w-2xl mx-auto mb-4">
+            Transparencia total. Impacto real. Aparece en la cima del ranking público.
           </p>
         </div>
 
-        {/* Botones CTA */}
+        {/* Botones CTA con microcopy mejorado */}
         <div className="text-center mb-12 space-y-4">
           {/* Botón principal - lleva al formulario de boost */}
           <div>
             <a
               href="#boost-form"
-              className="inline-block px-8 py-4 bg-green-500 hover:bg-green-600 text-black font-bold text-lg rounded-md transition-colors shadow-lg shadow-green-500/50"
+              className="inline-block px-8 py-4 md:py-5 bg-[var(--color-primary)] hover:bg-[var(--color-secondary)] text-white font-bold text-lg md:text-xl rounded-md transition-all duration-300 shadow-md hover:shadow-lg transform hover:scale-105"
               onClick={(e) => {
                 e.preventDefault()
                 document.getElementById('boost-form')?.scrollIntoView({ behavior: 'smooth' })
               }}
+              aria-label="Ir al formulario para entrar al ranking"
             >
-              Entrar al ranking
+              Contribuir ahora
             </a>
+            <p className="text-sm text-[var(--color-text-secondary)] mt-2">
+              El 95% va directo a refugios • Aparece en el ranking
+            </p>
           </div>
           {/* Botón secundario - ver ranking actual */}
           <div>
             <Link
               href="/ranking"
-              className="inline-block px-6 py-3 border-2 border-green-500/50 hover:border-green-500 text-green-400 hover:text-green-300 font-semibold text-base rounded-md transition-colors"
+              className="inline-block px-6 py-3 border-2 border-[var(--color-primary)] hover:bg-[var(--color-primary)] hover:text-white text-[var(--color-primary)] font-semibold text-base rounded-md transition-colors"
+              aria-label="Ver el ranking actual de donaciones"
             >
               Ver ranking actual
             </Link>
+            <p className="text-sm text-[var(--color-text-secondary)] mt-2">
+              Descubre quién está en la cima
+            </p>
           </div>
+        </div>
+
+        {/* Sección de incentivos visuales */}
+        <div className="max-w-4xl mx-auto mb-12 grid md:grid-cols-3 gap-4 animate-fade-in-up">
+          <div className="bg-[var(--color-background-alt)] border border-[var(--color-border-dark)] rounded-lg p-4 text-center hover:shadow-md transition-shadow">
+            <div className="text-3xl mb-2">🏆</div>
+            <h4 className="font-bold text-[var(--color-primary)] mb-1">Sé #1 público</h4>
+            <p className="text-sm text-[var(--color-text-secondary)]">Aparece en la cima del ranking</p>
+          </div>
+          <div className="bg-[var(--color-background-alt)] border border-[var(--color-border-dark)] rounded-lg p-4 text-center hover:shadow-md transition-shadow">
+            <div className="text-3xl mb-2">🐾</div>
+            <h4 className="font-bold text-[var(--color-secondary)] mb-1">95% a animales</h4>
+            <p className="text-sm text-[var(--color-text-secondary)]">Tu donación tiene máximo impacto</p>
+          </div>
+          <div className="bg-[var(--color-background-alt)] border border-[var(--color-border-dark)] rounded-lg p-4 text-center hover:shadow-md transition-shadow">
+            <div className="text-3xl mb-2">📸</div>
+            <h4 className="font-bold text-[var(--color-primary)] mb-1">Aparecerás en YouTube</h4>
+            <p className="text-sm text-[var(--color-text-secondary)]">Visibilidad en nuestras redes</p>
+          </div>
+        </div>
+
+        {/* TOP 3 Preview - FOMO instantáneo */}
+        <div className="max-w-2xl mx-auto mb-12">
+          <Top3Preview />
         </div>
 
         {/* Formulario de boost */}
@@ -107,14 +184,17 @@ function HomeContent() {
           <BoostForm />
         </div>
 
+        {/* Historias de rescate - antes del footer */}
+        <RescueStories />
+
         {/* Galería de animales */}
         <div className="max-w-6xl mx-auto mt-16 mb-12">
-          <h3 className="text-2xl md:text-3xl font-bold text-center text-green-400 mb-8">
+          <h3 className="text-2xl md:text-3xl font-bold text-center text-[var(--color-primary)] mb-8">
             Cada euro ayuda a estos amigos 🐾
           </h3>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
             {/* Imagen 1 */}
-            <div className="relative h-32 md:h-48 rounded-lg overflow-hidden border border-green-500/30 shadow-lg hover:scale-105 transition-transform">
+            <div className="relative h-32 md:h-48 rounded-lg overflow-hidden border border-[var(--color-border-dark)] shadow-md hover:scale-105 transition-transform">
               <Image
                 src="https://images.unsplash.com/photo-1548199973-03cce0bbc87b?w=400&h=400&fit=crop"
                 alt="Perro en refugio"
@@ -124,7 +204,7 @@ function HomeContent() {
               />
             </div>
             {/* Imagen 2 */}
-            <div className="relative h-32 md:h-48 rounded-lg overflow-hidden border border-green-500/30 shadow-lg hover:scale-105 transition-transform">
+            <div className="relative h-32 md:h-48 rounded-lg overflow-hidden border border-[var(--color-border-dark)] shadow-md hover:scale-105 transition-transform">
               <Image
                 src="https://images.unsplash.com/photo-1517849845537-4d257902454a?w=400&h=400&fit=crop"
                 alt="Gato esperando adopción"
@@ -134,7 +214,7 @@ function HomeContent() {
               />
             </div>
             {/* Imagen 3 */}
-            <div className="relative h-32 md:h-48 rounded-lg overflow-hidden border border-green-500/30 shadow-lg hover:scale-105 transition-transform">
+            <div className="relative h-32 md:h-48 rounded-lg overflow-hidden border border-[var(--color-border-dark)] shadow-md hover:scale-105 transition-transform">
               <Image
                 src="https://images.unsplash.com/photo-1583337130417-3346a1be7dee?w=400&h=400&fit=crop"
                 alt="Perro feliz"
@@ -144,7 +224,7 @@ function HomeContent() {
               />
             </div>
             {/* Imagen 4 */}
-            <div className="relative h-32 md:h-48 rounded-lg overflow-hidden border border-green-500/30 shadow-lg hover:scale-105 transition-transform">
+            <div className="relative h-32 md:h-48 rounded-lg overflow-hidden border border-[var(--color-border-dark)] shadow-md hover:scale-105 transition-transform">
               <Image
                 src="https://images.unsplash.com/photo-1574158622682-e40e69881006?w=400&h=400&fit=crop"
                 alt="Gato en refugio"
@@ -158,20 +238,20 @@ function HomeContent() {
 
         {/* Sección de información adicional */}
         <div className="max-w-4xl mx-auto mt-20 grid md:grid-cols-3 gap-8 text-center">
-          <div className="bg-gray-900 border border-green-500/30 rounded-lg p-6">
-            <div className="text-4xl font-bold text-green-400 mb-2">~95%</div>
-            <p className="text-gray-300">Para refugios de animales</p>
-            <p className="text-xs text-gray-500 mt-2">(varía según el monto)</p>
+          <div className="bg-[var(--color-background)] border border-[var(--color-border-dark)] rounded-lg p-6 shadow-sm">
+            <div className="text-4xl font-bold text-[var(--color-secondary)] mb-2">~95%</div>
+            <p className="text-[var(--color-text)]">Para refugios de animales</p>
+            <p className="text-xs text-[var(--color-text-secondary)] mt-2">(varía según el monto)</p>
           </div>
-          <div className="bg-gray-900 border border-green-500/30 rounded-lg p-6">
-            <div className="text-4xl font-bold text-gray-400 mb-2">~5%</div>
-            <p className="text-gray-300">Mantiene la plataforma</p>
-            <p className="text-xs text-gray-500 mt-2">(1.50€ + 5% variable)</p>
+          <div className="bg-[var(--color-background)] border border-[var(--color-border-dark)] rounded-lg p-6 shadow-sm">
+            <div className="text-4xl font-bold text-[var(--color-text-secondary)] mb-2">~5%</div>
+            <p className="text-[var(--color-text)]">Mantiene la plataforma</p>
+            <p className="text-xs text-[var(--color-text-secondary)] mt-2">(1.50€ + 5% variable)</p>
           </div>
-          <div className="bg-gray-900 border border-green-500/30 rounded-lg p-6">
-            <div className="text-4xl font-bold text-green-400 mb-2">100%</div>
-            <p className="text-gray-300">Transparencia total</p>
-            <p className="text-xs text-gray-500 mt-2">Cada euro contabilizado</p>
+          <div className="bg-[var(--color-background)] border border-[var(--color-border-dark)] rounded-lg p-6 shadow-sm">
+            <div className="text-4xl font-bold text-[var(--color-primary)] mb-2">100%</div>
+            <p className="text-[var(--color-text)]">Transparencia total</p>
+            <p className="text-xs text-[var(--color-text-secondary)] mt-2">Cada euro contabilizado</p>
           </div>
         </div>
 
@@ -179,7 +259,7 @@ function HomeContent() {
         <div className="text-center mt-12">
           <Link
             href="/impacto"
-            className="text-green-400 hover:text-green-300 underline transition-colors"
+            className="text-[var(--color-primary)] hover:text-[var(--color-secondary)] underline transition-colors"
           >
             Ver transparencia y distribución →
           </Link>
@@ -193,10 +273,10 @@ function HomeContent() {
 export default function Home() {
   return (
     <Suspense fallback={
-      <div className="min-h-screen bg-black text-white flex items-center justify-center">
+      <div className="min-h-screen bg-[var(--color-background)] text-[var(--color-text)] flex items-center justify-center" role="status" aria-live="polite" aria-label="Cargando página principal">
         <div className="text-center">
-          <div className="inline-block animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-green-500"></div>
-          <p className="mt-4 text-gray-400">Cargando...</p>
+          <div className="inline-block animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-[var(--color-primary)]" aria-hidden="true"></div>
+          <p className="mt-4 text-[var(--color-text-secondary)]">Cargando...</p>
         </div>
       </div>
     }>

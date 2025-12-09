@@ -6,8 +6,22 @@ import { cookies } from 'next/headers'
 const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL || ''
 const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || ''
 
+// Validar que las variables estén configuradas (solo en desarrollo para ayudar al desarrollador)
+if (process.env.NODE_ENV === 'development') {
+  if (!supabaseUrl) {
+    console.error('❌ NEXT_PUBLIC_SUPABASE_URL no está configurada. Revisa tu archivo .env.local')
+  }
+  if (!supabaseAnonKey) {
+    console.error('❌ NEXT_PUBLIC_SUPABASE_ANON_KEY no está configurada. Revisa tu archivo .env.local')
+  }
+}
+
 // Crear y exportar el cliente de Supabase para el servidor
 export const createClient = async () => {
+  if (!supabaseUrl || !supabaseAnonKey) {
+    throw new Error('Variables de entorno de Supabase no configuradas. Por favor, revisa tu archivo .env.local')
+  }
+
   const cookieStore = await cookies()
 
   return createServerClient(supabaseUrl, supabaseAnonKey, {
