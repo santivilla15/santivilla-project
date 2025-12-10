@@ -169,8 +169,170 @@ export default function sitemap(): MetadataRoute.Sitemap {
         },
       },
     },
-  ]
+    // Páginas Legales - Política de Privacidad
+    {
+      url: `${baseUrl}/privacidad`,
+      lastModified: now,
+      changeFrequency: 'monthly',
+      priority: 0.6,
+      alternates: {
+        languages: {
+          es: `${baseUrl}/privacidad`,
+          en: `${baseUrl}/en/privacidad`,
+          de: `${baseUrl}/de/privacidad`,
+        },
+      },
+    },
+    {
+      url: `${baseUrl}/en/privacidad`,
+      lastModified: now,
+      changeFrequency: 'monthly',
+      priority: 0.6,
+      alternates: {
+        languages: {
+          es: `${baseUrl}/privacidad`,
+          en: `${baseUrl}/en/privacidad`,
+          de: `${baseUrl}/de/privacidad`,
+        },
+      },
+    },
+    {
+      url: `${baseUrl}/de/privacidad`,
+      lastModified: now,
+      changeFrequency: 'monthly',
+      priority: 0.6,
+      alternates: {
+        languages: {
+          es: `${baseUrl}/privacidad`,
+          en: `${baseUrl}/en/privacidad`,
+          de: `${baseUrl}/de/privacidad`,
+        },
+      },
+    },
+    // Páginas Legales - Términos y Condiciones
+    {
+      url: `${baseUrl}/terminos`,
+      lastModified: now,
+      changeFrequency: 'monthly',
+      priority: 0.6,
+      alternates: {
+        languages: {
+          es: `${baseUrl}/terminos`,
+          en: `${baseUrl}/en/terminos`,
+          de: `${baseUrl}/de/terminos`,
+        },
+      },
+    },
+    {
+      url: `${baseUrl}/en/terminos`,
+      lastModified: now,
+      changeFrequency: 'monthly',
+      priority: 0.6,
+      alternates: {
+        languages: {
+          es: `${baseUrl}/terminos`,
+          en: `${baseUrl}/en/terminos`,
+          de: `${baseUrl}/de/terminos`,
+        },
+      },
+    },
+    {
+      url: `${baseUrl}/de/terminos`,
+      lastModified: now,
+      changeFrequency: 'monthly',
+      priority: 0.6,
+      alternates: {
+        languages: {
+          es: `${baseUrl}/terminos`,
+          en: `${baseUrl}/en/terminos`,
+          de: `${baseUrl}/de/terminos`,
+        },
+      },
+    },
+    // Páginas Legales - Aviso Legal
+    {
+      url: `${baseUrl}/aviso-legal`,
+      lastModified: now,
+      changeFrequency: 'monthly',
+      priority: 0.6,
+      alternates: {
+        languages: {
+          es: `${baseUrl}/aviso-legal`,
+          en: `${baseUrl}/en/aviso-legal`,
+          de: `${baseUrl}/de/aviso-legal`,
+        },
+      },
+    },
+    {
+      url: `${baseUrl}/en/aviso-legal`,
+      lastModified: now,
+      changeFrequency: 'monthly',
+      priority: 0.6,
+      alternates: {
+        languages: {
+          es: `${baseUrl}/aviso-legal`,
+          en: `${baseUrl}/en/aviso-legal`,
+          de: `${baseUrl}/de/aviso-legal`,
+        },
+      },
+    },
+      {
+        url: `${baseUrl}/de/aviso-legal`,
+        lastModified: now,
+        changeFrequency: 'monthly',
+        priority: 0.6,
+        alternates: {
+          languages: {
+            es: `${baseUrl}/aviso-legal`,
+            en: `${baseUrl}/en/aviso-legal`,
+            de: `${baseUrl}/de/aviso-legal`,
+          },
+        },
+      },
+      // Aviso de Privacidad México - Español
+      {
+        url: `${baseUrl}/aviso-privacidad-mexico`,
+        lastModified: now,
+        changeFrequency: 'monthly',
+        priority: 0.5,
+        alternates: {
+          languages: {
+            es: `${baseUrl}/aviso-privacidad-mexico`,
+            en: `${baseUrl}/en/aviso-privacidad-mexico`,
+            de: `${baseUrl}/de/aviso-privacidad-mexico`,
+          },
+        },
+      },
+      // Aviso de Privacidad México - Inglés
+      {
+        url: `${baseUrl}/en/aviso-privacidad-mexico`,
+        lastModified: now,
+        changeFrequency: 'monthly',
+        priority: 0.5,
+        alternates: {
+          languages: {
+            es: `${baseUrl}/aviso-privacidad-mexico`,
+            en: `${baseUrl}/en/aviso-privacidad-mexico`,
+            de: `${baseUrl}/de/aviso-privacidad-mexico`,
+          },
+        },
+      },
+      // Aviso de Privacidad México - Alemán
+      {
+        url: `${baseUrl}/de/aviso-privacidad-mexico`,
+        lastModified: now,
+        changeFrequency: 'monthly',
+        priority: 0.5,
+        alternates: {
+          languages: {
+            es: `${baseUrl}/aviso-privacidad-mexico`,
+            en: `${baseUrl}/en/aviso-privacidad-mexico`,
+            de: `${baseUrl}/de/aviso-privacidad-mexico`,
+          },
+        },
+      },
+    ]
 
-  return routes
-}
+    return routes
+  }
 

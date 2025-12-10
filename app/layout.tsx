@@ -7,6 +7,7 @@ import Navigation from './components/Navigation'
 import Footer from './components/Footer'
 import Analytics from './components/Analytics'
 import ServiceWorker from './components/ServiceWorker'
+import CookieBanner from './components/CookieBanner'
 
 const geistSans = Geist({
   variable: '--font-geist-sans',
@@ -52,8 +53,6 @@ export default function RootLayout({
       <head>
         <OrganizationSchema />
         <WebSiteSchema />
-        <link rel="preconnect" href="https://images.unsplash.com" />
-        <link rel="dns-prefetch" href="https://images.unsplash.com" />
         {/* Preconnect para Google Analytics */}
         <link rel="preconnect" href="https://www.googletagmanager.com" />
         <link rel="dns-prefetch" href="https://www.googletagmanager.com" />
@@ -72,11 +71,14 @@ export default function RootLayout({
         {/* Footer mejorado */}
         <Footer />
 
-        {/* Google Analytics */}
+        {/* Google Analytics - Solo se carga con consentimiento */}
         <Analytics />
         
         {/* Service Worker para PWA */}
         <ServiceWorker />
+        
+        {/* Banner de Cookies (GDPR) */}
+        <CookieBanner />
       </body>
     </html>
   )

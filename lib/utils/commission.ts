@@ -31,13 +31,18 @@ export function calculateCommissions(totalAmount: number): CommissionCalculation
   const remainingAfterFixed = Math.max(0, totalAmount - fixedFee)
   
   // Comisión variable (5% sobre lo restante)
-  const variableFee = remainingAfterFixed * VARIABLE_COMMISSION_RATE
+  // Para coincidir EXACTAMENTE con los ejemplos de la página de transparencia:
+  // Método que prioriza la donación (redondeando hacia arriba) y ajusta la plataforma
+  const donationRaw = remainingAfterFixed * 0.95
+  // Redondear donación hacia arriba para garantizar máximo beneficio a animales
+  const donationAmount = Math.ceil(donationRaw * 100) / 100
   
-  // Total que se queda la plataforma
-  const totalPlatformFee = fixedFee + variableFee
+  // Total que se queda la plataforma (diferencia entre total y donación)
+  // Esto garantiza que donation + platform = total exactamente
+  const totalPlatformFee = Math.round((totalAmount - donationAmount) * 100) / 100
   
-  // Total que va a animales
-  const donationAmount = totalAmount - totalPlatformFee
+  // Comisión variable (plataforma menos comisión fija)
+  const variableFee = totalPlatformFee - fixedFee
   
   // Calcular porcentajes (redondeados a 1 decimal)
   const donationPercentage = totalAmount > 0 

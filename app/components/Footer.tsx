@@ -3,6 +3,7 @@
 // Componente de footer con traducciones
 import { usePathname } from 'next/navigation'
 import Link from 'next/link'
+import DoNotSellButton from './DoNotSellButton'
 
 const translations = {
   es: {
@@ -17,6 +18,10 @@ const translations = {
     contribute: 'Contribuir ahora',
     viewTransparency: 'Ver transparencia',
     contact: 'Contacto',
+    legal: 'Legal',
+    privacy: 'Privacidad',
+    terms: 'Términos',
+    legalNotice: 'Aviso Legal',
     copyright: '© 2026 Santivilla. El ~95% de los ingresos se dona a refugios de animales.',
   },
   en: {
@@ -31,6 +36,10 @@ const translations = {
     contribute: 'Contribute now',
     viewTransparency: 'View transparency',
     contact: 'Contact',
+    legal: 'Legal',
+    privacy: 'Privacy',
+    terms: 'Terms',
+    legalNotice: 'Legal Notice',
     copyright: '© 2026 Santivilla. ~95% of revenue is donated to animal shelters.',
   },
   de: {
@@ -45,6 +54,10 @@ const translations = {
     contribute: 'Jetzt beitragen',
     viewTransparency: 'Transparenz anzeigen',
     contact: 'Kontakt',
+    legal: 'Rechtliches',
+    privacy: 'Datenschutz',
+    terms: 'Bedingungen',
+    legalNotice: 'Impressum',
     copyright: '© 2026 Santivilla. ~95% der Einnahmen werden an Tierheime gespendet.',
   },
 }
@@ -60,6 +73,9 @@ export default function Footer() {
   const impactoPath = lang === 'es' ? '/impacto' : `/${lang}/impacto`
   const faqPath = lang === 'es' ? '/faq' : `/${lang}/faq`
   const boostFormPath = lang === 'es' ? '/#boost-form' : `/${lang}#boost-form`
+  const privacyPath = lang === 'es' ? '/privacidad' : `/${lang}/privacidad`
+  const termsPath = lang === 'es' ? '/terminos' : `/${lang}/terminos`
+  const legalNoticePath = lang === 'es' ? '/aviso-legal' : `/${lang}/aviso-legal`
 
   return (
     <footer className="border-t border-[var(--color-border)] mt-16 py-12 bg-[var(--color-background-alt)]">
@@ -138,11 +154,38 @@ export default function Footer() {
               </li>
             </ul>
           </div>
+          
+          {/* Legal */}
+          <div>
+            <h4 className="font-bold text-[var(--color-text)] mb-3">{t.legal}</h4>
+            <ul className="space-y-2 text-sm text-[var(--color-text-secondary)]">
+              <li>
+                <Link href={privacyPath} className="hover:text-[var(--color-primary)] transition-colors">
+                  {t.privacy}
+                </Link>
+              </li>
+              <li>
+                <Link href={termsPath} className="hover:text-[var(--color-primary)] transition-colors">
+                  {t.terms}
+                </Link>
+              </li>
+              <li>
+                <Link href={legalNoticePath} className="hover:text-[var(--color-primary)] transition-colors">
+                  {t.legalNotice}
+                </Link>
+              </li>
+            </ul>
+          </div>
         </div>
         
-        {/* Copyright */}
-        <div className="border-t border-[var(--color-border)] pt-6 text-center text-sm text-[var(--color-text-secondary)]">
-          <p>{t.copyright}</p>
+        {/* Copyright y Do Not Sell */}
+        <div className="border-t border-[var(--color-border)] pt-6">
+          <div className="text-center text-sm text-[var(--color-text-secondary)] mb-2">
+            <p>{t.copyright}</p>
+          </div>
+          <div className="text-center text-xs text-[var(--color-text-secondary)]">
+            <DoNotSellButton />
+          </div>
         </div>
       </div>
     </footer>

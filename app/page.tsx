@@ -83,7 +83,7 @@ function HomeContent() {
         <div className="flex justify-center mb-8">
           <div className="relative w-full max-w-2xl h-64 md:h-96 rounded-lg overflow-hidden border-2 border-[var(--color-border-dark)] shadow-lg">
             <Image
-              src="https://images.unsplash.com/photo-1601758228041-f3b2795255f1?w=800&h=600&fit=crop"
+              src="/images/IMG_3038.JPG"
               alt="Animales esperando un hogar"
               fill
               className="object-cover"
@@ -196,8 +196,8 @@ function HomeContent() {
             {/* Imagen 1 */}
             <div className="relative h-32 md:h-48 rounded-lg overflow-hidden border border-[var(--color-border-dark)] shadow-md hover:scale-105 transition-transform">
               <Image
-                src="https://images.unsplash.com/photo-1548199973-03cce0bbc87b?w=400&h=400&fit=crop"
-                alt="Perro en refugio"
+                src="/images/IMG_3035.JPG"
+                alt="Animales rescatados"
                 fill
                 className="object-cover"
                 sizes="(max-width: 768px) 50vw, 25vw"
@@ -206,8 +206,8 @@ function HomeContent() {
             {/* Imagen 2 */}
             <div className="relative h-32 md:h-48 rounded-lg overflow-hidden border border-[var(--color-border-dark)] shadow-md hover:scale-105 transition-transform">
               <Image
-                src="https://images.unsplash.com/photo-1517849845537-4d257902454a?w=400&h=400&fit=crop"
-                alt="Gato esperando adopción"
+                src="/images/IMG_3036.JPG"
+                alt="Animal esperando adopción"
                 fill
                 className="object-cover"
                 sizes="(max-width: 768px) 50vw, 25vw"
@@ -216,8 +216,8 @@ function HomeContent() {
             {/* Imagen 3 */}
             <div className="relative h-32 md:h-48 rounded-lg overflow-hidden border border-[var(--color-border-dark)] shadow-md hover:scale-105 transition-transform">
               <Image
-                src="https://images.unsplash.com/photo-1583337130417-3346a1be7dee?w=400&h=400&fit=crop"
-                alt="Perro feliz"
+                src="/images/IMG_3037.AVIF"
+                alt="Animal rescatado"
                 fill
                 className="object-cover"
                 sizes="(max-width: 768px) 50vw, 25vw"
@@ -226,8 +226,8 @@ function HomeContent() {
             {/* Imagen 4 */}
             <div className="relative h-32 md:h-48 rounded-lg overflow-hidden border border-[var(--color-border-dark)] shadow-md hover:scale-105 transition-transform">
               <Image
-                src="https://images.unsplash.com/photo-1574158622682-e40e69881006?w=400&h=400&fit=crop"
-                alt="Gato en refugio"
+                src="/images/IMG_3038.JPG"
+                alt="Animal en refugio"
                 fill
                 className="object-cover"
                 sizes="(max-width: 768px) 50vw, 25vw"

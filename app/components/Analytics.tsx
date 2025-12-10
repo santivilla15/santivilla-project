@@ -3,20 +3,44 @@
 
 import Script from 'next/script'
 import { usePathname } from 'next/navigation'
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 
 /**
  * Componente interno que usa usePathname
+ * SOLO carga Google Analytics si el usuario ha dado su consentimiento
  */
 function AnalyticsContent() {
   const pathname = usePathname()
   
   // Obtener el ID de GA
   const gaId = process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID
+  const [consentGiven, setConsentGiven] = useState(false)
 
-  // Rastrear cambios de página
+  // Verificar consentimiento de cookies al montar
   useEffect(() => {
-    if (!gaId || typeof window === 'undefined') return
+    if (typeof window === 'undefined') return
+    
+    // Verificar si hay consentimiento guardado
+    const cookieConsent = localStorage.getItem('cookie_consent')
+    if (cookieConsent === 'accepted') {
+      setConsentGiven(true)
+    }
+
+    // Escuchar eventos de consentimiento
+    const handleConsentAccepted = () => {
+      setConsentGiven(true)
+    }
+    
+    window.addEventListener('cookieConsentAccepted', handleConsentAccepted)
+    
+    return () => {
+      window.removeEventListener('cookieConsentAccepted', handleConsentAccepted)
+    }
+  }, [])
+
+  // Rastrear cambios de página (solo si hay consentimiento)
+  useEffect(() => {
+    if (!gaId || !consentGiven || typeof window === 'undefined') return
 
     // Usar window.location para obtener search params sin useSearchParams
     const url = pathname + (typeof window !== 'undefined' && window.location.search ? window.location.search : '')
@@ -27,16 +51,16 @@ function AnalyticsContent() {
         page_path: url,
       })
     }
-  }, [pathname, gaId])
+  }, [pathname, gaId, consentGiven])
 
-  // Si no hay ID configurado, no renderizar nada
-  if (!gaId) {
+  // Si no hay ID configurado o no hay consentimiento, no renderizar nada
+  if (!gaId || !consentGiven) {
     return null
   }
 
   return (
     <>
-      {/* Google Analytics 4 */}
+      {/* Google Analytics 4 - Solo se carga si hay consentimiento */}
       <Script
         strategy="afterInteractive"
         src={`https://www.googletagmanager.com/gtag/js?id=${gaId}`}

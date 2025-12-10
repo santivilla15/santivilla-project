@@ -332,7 +332,7 @@ function RankingContent() {
         <div className="flex justify-center mb-12">
           <div className="relative w-full max-w-4xl h-32 md:h-48 rounded-lg overflow-hidden border-2 border-[var(--color-border-dark)] shadow-lg">
             <Image
-              src="https://images.unsplash.com/photo-1601758228041-f3b2795255f1?w=1200&h=300&fit=crop"
+              src="/images/IMG_3038.JPG"
               alt={lang === 'es' ? 'Animales en refugio' : lang === 'en' ? 'Animals in shelter' : 'Tiere im Tierheim'}
               fill
               className="object-cover"

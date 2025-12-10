@@ -14,19 +14,19 @@ interface RescueStory {
 const stories: RescueStory[] = [
   {
     name: 'Luna',
-    image: 'https://images.unsplash.com/photo-1601758228041-f3b2795255f1?w=400&h=400&fit=crop',
+    image: '/images/IMG_3035.JPG',
     amount: 450,
     timeAgo: { es: 'hace 2 semanas', en: '2 weeks ago', de: 'vor 2 Wochen' },
   },
   {
     name: 'Max',
-    image: 'https://images.unsplash.com/photo-1517849845537-4d257902454a?w=400&h=400&fit=crop',
+    image: '/images/IMG_3036.JPG',
     amount: 300,
     timeAgo: { es: 'hace 3 semanas', en: '3 weeks ago', de: 'vor 3 Wochen' },
   },
   {
     name: 'Bella',
-    image: 'https://images.unsplash.com/photo-1583337130417-3346a1be7dee?w=400&h=400&fit=crop',
+    image: '/images/IMG_3037.AVIF',
     amount: 200,
     timeAgo: { es: 'hace 1 mes', en: '1 month ago', de: 'vor 1 Monat' },
   },

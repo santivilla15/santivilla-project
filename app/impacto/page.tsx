@@ -472,8 +472,8 @@ function ImpactoContent() {
                 {/* Imagen 1 */}
                 <div className="relative h-40 md:h-56 rounded-lg overflow-hidden border border-[var(--color-border-dark)] shadow-md">
                   <Image
-                    src="https://images.unsplash.com/photo-1520087619250-584c0cbd35e8?w=400&h=400&fit=crop"
-                    alt="Perro en refugio esperando hogar"
+                    src="/images/IMG_3035.JPG"
+                    alt="Animales rescatados esperando hogar"
                     fill
                     className="object-cover hover:scale-110 transition-transform duration-300"
                     sizes="(max-width: 768px) 50vw, 33vw"
@@ -482,8 +482,8 @@ function ImpactoContent() {
                 {/* Imagen 2 */}
                 <div className="relative h-40 md:h-56 rounded-lg overflow-hidden border border-[var(--color-border-dark)] shadow-md">
                   <Image
-                    src="https://images.unsplash.com/photo-1513360371669-4adf3dd7dff8?w=400&h=400&fit=crop"
-                    alt="Gato esperando adopción"
+                    src="/images/IMG_3036.JPG"
+                    alt="Animal esperando adopción"
                     fill
                     className="object-cover hover:scale-110 transition-transform duration-300"
                     sizes="(max-width: 768px) 50vw, 33vw"
@@ -492,8 +492,8 @@ function ImpactoContent() {
                 {/* Imagen 3 */}
                 <div className="relative h-40 md:h-56 rounded-lg overflow-hidden border border-[var(--color-border-dark)] shadow-md">
                   <Image
-                    src="https://images.unsplash.com/photo-1596854407944-bf87f6fdd49e?w=400&h=400&fit=crop"
-                    alt="Perro en refugio"
+                    src="/images/IMG_3037.AVIF"
+                    alt="Animal rescatado"
                     fill
                     className="object-cover hover:scale-110 transition-transform duration-300"
                     sizes="(max-width: 768px) 50vw, 33vw"
