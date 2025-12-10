@@ -21,18 +21,19 @@ export default function manifest(): MetadataRoute.Manifest {
       },
       // Nota: Los iconos icon-192.png e icon-512.png deben crearse
       // Ver PWA_ICONS_GUIDE.md para instrucciones
-      {
-        src: '/icon-192.png',
-        sizes: '192x192',
-        type: 'image/png',
-        purpose: 'any maskable',
-      },
-      {
-        src: '/icon-512.png',
-        sizes: '512x512',
-        type: 'image/png',
-        purpose: 'any maskable',
-      },
+      // Temporalmente comentados para evitar errores en build
+      // {
+      //   src: '/icon-192.png',
+      //   sizes: '192x192',
+      //   type: 'image/png',
+      //   purpose: 'any maskable',
+      // },
+      // {
+      //   src: '/icon-512.png',
+      //   sizes: '512x512',
+      //   type: 'image/png',
+      //   purpose: 'any maskable',
+      // },
     ],
     categories: ['social', 'charity', 'finance'],
     lang: 'es',

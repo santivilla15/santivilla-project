@@ -35,3 +35,8 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+*.txt
+env.vercel*
+GUIA_DEPLOY*.md
+SOLUCION_DEPLOY.md
+scripts/add-env-vars.sh
