@@ -115,15 +115,15 @@ export default function Top3Preview() {
 
   if (loading) {
     return (
-      <div className="bg-[var(--color-background-alt)] border-2 border-[var(--color-primary)] rounded-lg p-6 shadow-lg">
-        <h3 className="text-xl font-bold text-[var(--color-primary)] mb-4 text-center">
+      <div className="bg-[var(--color-background-alt)] border-2 border-[var(--color-primary)] rounded-lg p-4 md:p-6 shadow-lg">
+        <h3 className="text-lg md:text-xl font-bold text-[var(--color-primary)] mb-3 md:mb-4 text-center">
           {t.title}
         </h3>
-        <div className="space-y-3">
+        <div className="space-y-2 md:space-y-3">
           {[1, 2, 3].map((i) => (
-            <div key={i} className="flex items-center gap-3 animate-pulse">
-              <div className="w-8 h-8 bg-[var(--color-border-dark)] rounded-full"></div>
-              <div className="flex-1 h-6 bg-[var(--color-border-dark)] rounded"></div>
+            <div key={i} className="flex items-center gap-2 md:gap-3 animate-pulse">
+              <div className="w-8 h-8 md:w-10 md:h-10 bg-[var(--color-border-dark)] rounded-full"></div>
+              <div className="flex-1 h-5 md:h-6 bg-[var(--color-border-dark)] rounded"></div>
             </div>
           ))}
         </div>
@@ -132,26 +132,26 @@ export default function Top3Preview() {
   }
 
   return (
-    <div className="bg-[var(--color-background-alt)] border-2 border-[var(--color-primary)] rounded-lg p-6 shadow-lg animate-fade-in">
-      <h3 className="text-xl md:text-2xl font-bold text-[var(--color-primary)] mb-4 text-center">
+    <div className="bg-[var(--color-background-alt)] border-2 border-[var(--color-primary)] rounded-lg p-4 md:p-6 shadow-lg animate-fade-in">
+      <h3 className="text-lg md:text-xl lg:text-2xl font-bold text-[var(--color-primary)] mb-3 md:mb-4 text-center">
         {t.title}
       </h3>
-      <div className="space-y-3 mb-4">
+      <div className="space-y-2 md:space-y-3 mb-3 md:mb-4">
         {top3.map((user, index) => (
           <div
             key={user.rank}
-            className="flex items-center gap-3 p-3 bg-[var(--color-background)] rounded-md border border-[var(--color-border-dark)] hover:border-[var(--color-primary)] transition-colors"
+            className="flex items-center gap-2 md:gap-3 p-2 md:p-3 bg-[var(--color-background)] rounded-md border border-[var(--color-border-dark)] hover:border-[var(--color-primary)] transition-colors"
           >
-            <div className={`w-10 h-10 rounded-full flex items-center justify-center font-bold text-white ${
+            <div className={`w-8 h-8 md:w-10 md:h-10 rounded-full flex items-center justify-center font-bold text-white text-sm md:text-base ${
               index === 0 ? 'bg-gradient-to-br from-yellow-400 to-yellow-600' :
               index === 1 ? 'bg-gradient-to-br from-gray-300 to-gray-500' :
               'bg-gradient-to-br from-orange-300 to-orange-500'
             }`}>
               {user.rank}
             </div>
-            <div className="flex-1">
-              <p className="font-semibold text-[var(--color-text)]">{user.name}</p>
-              <p className="text-sm text-[var(--color-text-secondary)]">
+            <div className="flex-1 min-w-0">
+              <p className="font-semibold text-sm md:text-base text-[var(--color-text)] truncate">{user.name}</p>
+              <p className="text-xs md:text-sm text-[var(--color-text-secondary)]">
                 {user.score.toFixed(2)} €
               </p>
             </div>
@@ -160,7 +160,7 @@ export default function Top3Preview() {
       </div>
       <Link
         href={rankingPath}
-        className="block text-center text-[var(--color-primary)] hover:text-[var(--color-secondary)] font-semibold transition-colors underline"
+        className="block text-center text-xs md:text-sm text-[var(--color-primary)] hover:text-[var(--color-secondary)] font-semibold transition-colors underline"
         aria-label={t.viewFull}
       >
         {t.viewFull}

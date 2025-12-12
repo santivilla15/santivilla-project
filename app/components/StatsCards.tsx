@@ -41,36 +41,36 @@ export default function StatsCards({
   const lang = pathname.startsWith('/en') ? 'en' : pathname.startsWith('/de') ? 'de' : 'es'
   const t = translations[lang]
   return (
-    <div className="grid md:grid-cols-3 gap-6 mb-12">
+    <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 md:gap-6 mb-8 md:mb-12">
       {/* Total Recaudado */}
-      <div className="bg-[var(--color-background)] border border-[var(--color-border-dark)] rounded-lg p-8 text-center hover:border-[var(--color-primary)] transition-colors shadow-sm">
-        <div className="text-4xl mb-3">💰</div>
-        <div className="text-3xl font-bold text-[var(--color-primary)] mb-2">
+      <div className="bg-[var(--color-background)] border border-[var(--color-border-dark)] rounded-lg p-4 md:p-6 lg:p-8 text-center hover:border-[var(--color-primary)] transition-colors shadow-sm">
+        <div className="text-3xl md:text-4xl mb-2 md:mb-3">💰</div>
+        <div className="text-2xl md:text-3xl font-bold text-[var(--color-primary)] mb-1 md:mb-2">
           {formatCurrency(totalRecaudado)}
         </div>
-        <div className="text-[var(--color-text-secondary)]">{t.totalRaised}</div>
+        <div className="text-sm md:text-base text-[var(--color-text-secondary)]">{t.totalRaised}</div>
       </div>
 
       {/* Total Donado */}
-      <div className="bg-[var(--color-background)] border border-[var(--color-border-dark)] rounded-lg p-8 text-center hover:border-[var(--color-secondary)] transition-colors shadow-sm">
-        <div className="text-4xl mb-3">🐾</div>
-        <div className="text-3xl font-bold text-[var(--color-secondary)] mb-2">
+      <div className="bg-[var(--color-background)] border border-[var(--color-border-dark)] rounded-lg p-4 md:p-6 lg:p-8 text-center hover:border-[var(--color-secondary)] transition-colors shadow-sm">
+        <div className="text-3xl md:text-4xl mb-2 md:mb-3">🐾</div>
+        <div className="text-2xl md:text-3xl font-bold text-[var(--color-secondary)] mb-1 md:mb-2">
           {formatCurrency(totalDonado)}
         </div>
-        <div className="text-[var(--color-text-secondary)]">{t.donatedToAnimals}</div>
-        <div className="text-xs text-[var(--color-secondary)] mt-2 font-semibold">
+        <div className="text-sm md:text-base text-[var(--color-text-secondary)]">{t.donatedToAnimals}</div>
+        <div className="text-xs text-[var(--color-secondary)] mt-1 md:mt-2 font-semibold">
           ({totalRecaudado > 0 ? ((totalDonado / totalRecaudado) * 100).toFixed(1) : '95'}% {t.ofTotal})
         </div>
       </div>
 
       {/* Total Plataforma */}
-      <div className="bg-[var(--color-background)] border border-[var(--color-border-dark)] rounded-lg p-8 text-center hover:border-[var(--color-primary)] transition-colors shadow-sm">
-        <div className="text-4xl mb-3">⚙️</div>
-        <div className="text-3xl font-bold text-[var(--color-primary)] mb-2">
+      <div className="bg-[var(--color-background)] border border-[var(--color-border-dark)] rounded-lg p-4 md:p-6 lg:p-8 text-center hover:border-[var(--color-primary)] transition-colors shadow-sm">
+        <div className="text-3xl md:text-4xl mb-2 md:mb-3">⚙️</div>
+        <div className="text-2xl md:text-3xl font-bold text-[var(--color-primary)] mb-1 md:mb-2">
           {formatCurrency(totalPlataforma)}
         </div>
-        <div className="text-[var(--color-text-secondary)]">{t.forPlatform}</div>
-        <div className="text-xs text-[var(--color-text-secondary)] mt-2">
+        <div className="text-sm md:text-base text-[var(--color-text-secondary)]">{t.forPlatform}</div>
+        <div className="text-xs text-[var(--color-text-secondary)] mt-1 md:mt-2">
           ({totalRecaudado > 0 ? ((totalPlataforma / totalRecaudado) * 100).toFixed(1) : '5'}% {t.ofTotal})
         </div>
       </div>

@@ -196,11 +196,11 @@ export default function BoostForm() {
   }
 
   return (
-    <div className="w-full max-w-md mx-auto bg-[var(--color-background)] border border-[var(--color-border-dark)] rounded-lg p-6 shadow-md hover:shadow-lg transition-shadow">
-      <h2 className="text-2xl font-bold text-[var(--color-primary)] mb-2 text-center">
+    <div className="w-full max-w-md mx-auto bg-[var(--color-background)] border border-[var(--color-border-dark)] rounded-lg p-4 md:p-6 shadow-md hover:shadow-lg transition-shadow">
+      <h2 className="text-xl md:text-2xl font-bold text-[var(--color-primary)] mb-2 text-center">
         {t.title}
       </h2>
-      <p className="text-sm text-[var(--color-text-secondary)] text-center mb-6">
+      <p className="text-xs md:text-sm text-[var(--color-text-secondary)] text-center mb-4 md:mb-6">
         {t.subtitle}
       </p>
 
@@ -266,14 +266,14 @@ export default function BoostForm() {
 
         {/* Preview en tiempo real de la posición */}
         {name.trim() && amount >= 1 && previewPosition && (
-          <div className="bg-gradient-to-br from-[var(--color-primary)]/10 to-[var(--color-secondary)]/10 border-2 border-[var(--color-primary)] rounded-lg p-4 animate-fade-in" role="region" aria-label="Vista previa de tu posición en el ranking">
-            <h4 className="text-lg font-bold text-[var(--color-primary)] mb-3 flex items-center gap-2">
+          <div className="bg-gradient-to-br from-[var(--color-primary)]/10 to-[var(--color-secondary)]/10 border-2 border-[var(--color-primary)] rounded-lg p-3 md:p-4 animate-fade-in" role="region" aria-label="Vista previa de tu posición en el ranking">
+            <h4 className="text-base md:text-lg font-bold text-[var(--color-primary)] mb-2 md:mb-3 flex items-center gap-2">
               {t.previewTitle}
             </h4>
-            <div className="space-y-2 text-sm">
+            <div className="space-y-2 text-xs md:text-sm">
               <div className="flex justify-between">
                 <span className="text-[var(--color-text-secondary)]">{t.previewName}</span>
-                <span className="font-semibold text-[var(--color-text)]">{name}</span>
+                <span className="font-semibold text-[var(--color-text)] truncate ml-2">{name}</span>
               </div>
               <div className="flex justify-between">
                 <span className="text-[var(--color-text-secondary)]">{t.previewAmount}</span>
@@ -281,7 +281,7 @@ export default function BoostForm() {
               </div>
               <div className="flex justify-between items-center pt-2 border-t border-[var(--color-border-dark)]">
                 <span className="text-[var(--color-text-secondary)]">{t.previewPosition}</span>
-                <span className="text-2xl font-bold text-[var(--color-secondary)]">
+                <span className="text-xl md:text-2xl font-bold text-[var(--color-secondary)]">
                   #{previewPosition}
                 </span>
               </div>
@@ -305,30 +305,30 @@ export default function BoostForm() {
 
         {/* Texto informativo sobre el reparto con nuevo modelo */}
         {amount >= 1 && (
-          <div className="bg-[var(--color-background-alt)] border border-[var(--color-border-dark)] rounded-md p-4 space-y-3" role="region" aria-label="Desglose de la donación">
+          <div className="bg-[var(--color-background-alt)] border border-[var(--color-border-dark)] rounded-md p-3 md:p-4 space-y-2 md:space-y-3" role="region" aria-label="Desglose de la donación">
             {(() => {
               const commission = calculateCommissions(amount)
               return (
                 <>
                   <div className="text-center">
-                    <p className="text-sm text-[var(--color-text-secondary)] mb-3">
-                      {t.breakdownOf} <span className="text-[var(--color-text)] font-bold text-base">{formatCurrency(amount)}</span>:
+                    <p className="text-xs md:text-sm text-[var(--color-text-secondary)] mb-2 md:mb-3">
+                      {t.breakdownOf} <span className="text-[var(--color-text)] font-bold text-sm md:text-base">{formatCurrency(amount)}</span>:
                     </p>
-                    <div className="flex items-center justify-center gap-2 mb-2">
-                      <span className="text-2xl" aria-hidden="true">✅</span>
-                      <p className="text-lg text-[var(--color-secondary)] font-bold">
+                    <div className="flex items-center justify-center gap-1 md:gap-2 mb-2">
+                      <span className="text-xl md:text-2xl" aria-hidden="true">✅</span>
+                      <p className="text-base md:text-lg text-[var(--color-secondary)] font-bold">
                         {formatCurrency(commission.donationAmount)} {t.breakdownGoesTo}
                       </p>
-                      <span className="text-lg" aria-hidden="true">🐾</span>
+                      <span className="text-base md:text-lg" aria-hidden="true">🐾</span>
                     </div>
-                    <p className="text-sm text-[var(--color-secondary)] font-semibold">
+                    <p className="text-xs md:text-sm text-[var(--color-secondary)] font-semibold">
                       ({commission.donationPercentage}%)
                     </p>
                   </div>
-                  <div className="border-t border-[var(--color-border-dark)] pt-3 mt-3">
-                    <div className="flex items-center justify-center gap-2">
-                      <span className="text-xl" aria-hidden="true">💚</span>
-                      <p className="text-sm text-[var(--color-text-secondary)]">
+                  <div className="border-t border-[var(--color-border-dark)] pt-2 md:pt-3 mt-2 md:mt-3">
+                    <div className="flex items-center justify-center gap-1 md:gap-2">
+                      <span className="text-lg md:text-xl" aria-hidden="true">💚</span>
+                      <p className="text-xs md:text-sm text-[var(--color-text-secondary)]">
                         {t.breakdownCosts} <span className="text-[var(--color-text)] font-semibold">{formatCurrency(commission.totalPlatformFee)}</span>
                       </p>
                     </div>

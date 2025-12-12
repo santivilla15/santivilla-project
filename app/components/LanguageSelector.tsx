@@ -31,41 +31,41 @@ export default function LanguageSelector() {
   }
 
   return (
-    <div className="flex items-center gap-2 border-l border-[var(--color-border)] pl-6">
+    <div className="flex items-center gap-1 md:gap-2 border-l border-[var(--color-border)] pl-3 md:pl-6">
       <Link 
         href={getLocalizedPath('es')} 
-        className={`text-sm transition-colors font-medium ${
+        className={`text-xs md:text-sm transition-colors font-medium ${
           currentLang === 'es' 
             ? 'text-[var(--color-primary)] font-bold' 
             : 'text-[var(--color-text-secondary)] hover:text-[var(--color-primary)]'
         }`}
         aria-label="Cambiar a español"
       >
-        🇪🇸 ES
+        🇪🇸 <span className="hidden sm:inline">ES</span>
       </Link>
-      <span className="text-[var(--color-text-secondary)]">|</span>
+      <span className="text-[var(--color-text-secondary)] hidden sm:inline">|</span>
       <Link 
         href={getLocalizedPath('en')} 
-        className={`text-sm transition-colors font-medium ${
+        className={`text-xs md:text-sm transition-colors font-medium ${
           currentLang === 'en' 
             ? 'text-[var(--color-primary)] font-bold' 
             : 'text-[var(--color-text-secondary)] hover:text-[var(--color-primary)]'
         }`}
         aria-label="Switch to English"
       >
-        🇬🇧 EN
+        🇬🇧 <span className="hidden sm:inline">EN</span>
       </Link>
-      <span className="text-[var(--color-text-secondary)]">|</span>
+      <span className="text-[var(--color-text-secondary)] hidden sm:inline">|</span>
       <Link 
         href={getLocalizedPath('de')} 
-        className={`text-sm transition-colors font-medium ${
+        className={`text-xs md:text-sm transition-colors font-medium ${
           currentLang === 'de' 
             ? 'text-[var(--color-primary)] font-bold' 
             : 'text-[var(--color-text-secondary)] hover:text-[var(--color-primary)]'
         }`}
         aria-label="Zu Deutsch wechseln"
       >
-        🇩🇪 DE
+        🇩🇪 <span className="hidden sm:inline">DE</span>
       </Link>
     </div>
   )

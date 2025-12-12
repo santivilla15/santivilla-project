@@ -284,15 +284,15 @@ function ImpactoContent() {
       
       <div className="container mx-auto px-4">
         {/* Título de la página */}
-        <div className="text-center mb-12">
-          <h1 className="text-4xl md:text-6xl font-bold text-[var(--color-primary)] mb-4 text-glow">
+        <div className="text-center mb-8 md:mb-12 px-2">
+          <h1 className="text-2xl sm:text-3xl md:text-5xl lg:text-6xl font-bold text-[var(--color-primary)] mb-3 md:mb-4 text-glow">
             {t.title}
           </h1>
-          <p className="text-[var(--color-text-secondary)] text-lg max-w-3xl mx-auto mb-6">
+          <p className="text-base md:text-lg text-[var(--color-text-secondary)] max-w-3xl mx-auto mb-4 md:mb-6">
             {t.subtitle}
           </p>
           {/* Texto explicativo */}
-          <div className="bg-[var(--color-background-alt)] border border-[var(--color-primary)] rounded-lg p-6 max-w-4xl mx-auto text-left space-y-4">
+          <div className="bg-[var(--color-background-alt)] border border-[var(--color-primary)] rounded-lg p-4 md:p-6 max-w-4xl mx-auto text-left space-y-3 md:space-y-4 text-sm md:text-base">
             <div>
               <p className="text-[var(--color-text)] leading-relaxed mb-4">
                 {t.intro}
@@ -345,7 +345,7 @@ function ImpactoContent() {
 
         {/* Mostrar error si ocurre */}
         {error && (
-          <div className="bg-[#FFEBEE] border border-[var(--color-secondary)] rounded-md p-4 text-[var(--color-secondary)] text-center mb-8 max-w-2xl mx-auto">
+          <div className="bg-[#FFEBEE] border border-[var(--color-secondary)] rounded-md p-3 md:p-4 text-[var(--color-secondary)] text-center mb-6 md:mb-8 max-w-2xl mx-auto text-sm md:text-base px-2">
             {error}
             {error.includes('Supabase') && (
               <div className="mt-3 text-sm text-[var(--color-secondary)]">
@@ -464,11 +464,11 @@ function ImpactoContent() {
             </div>
 
             {/* Galería de animales ayudados */}
-            <div className="bg-[var(--color-background)] border border-[var(--color-border-dark)] rounded-lg p-8 mt-8 shadow-sm">
-              <h2 className="text-2xl font-bold text-[var(--color-primary)] mb-6 text-center">
+            <div className="bg-[var(--color-background)] border border-[var(--color-border-dark)] rounded-lg p-4 md:p-6 lg:p-8 mt-6 md:mt-8 shadow-sm">
+              <h2 className="text-xl md:text-2xl font-bold text-[var(--color-primary)] mb-4 md:mb-6 text-center">
                 {t.animalsTitle}
               </h2>
-              <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
+              <div className="grid grid-cols-2 md:grid-cols-3 gap-3 md:gap-4">
                 {/* Imagen 1 */}
                 <div className="relative h-40 md:h-56 rounded-lg overflow-hidden border border-[var(--color-border-dark)] shadow-md">
                   <Image
@@ -506,10 +506,10 @@ function ImpactoContent() {
             </div>
 
             {/* Botón para volver a la home */}
-            <div className="text-center mt-12">
+            <div className="text-center mt-8 md:mt-12 px-2">
               <Link
                 href={homePath}
-                className="inline-block px-6 py-3 bg-[var(--color-primary)] hover:bg-[var(--color-secondary)] text-white font-bold rounded-md transition-colors"
+                className="inline-block px-5 py-2.5 md:px-6 md:py-3 bg-[var(--color-primary)] hover:bg-[var(--color-secondary)] text-white font-bold text-sm md:text-base rounded-md transition-colors"
                 aria-label={t.buttonAria}
               >
                 {t.buttonText}

@@ -319,29 +319,29 @@ function RankingContent() {
       
       <div className="container mx-auto px-4">
         {/* Título de la página */}
-        <div className="text-center mb-8">
-          <h1 className="text-4xl md:text-6xl font-bold text-[var(--color-primary)] mb-4 text-glow">
+        <div className="text-center mb-6 md:mb-8 px-2">
+          <h1 className="text-2xl sm:text-3xl md:text-5xl lg:text-6xl font-bold text-[var(--color-primary)] mb-3 md:mb-4 text-glow">
             {t.title}
           </h1>
-          <p className="text-[var(--color-text-secondary)] text-lg">
+          <p className="text-base md:text-lg text-[var(--color-text-secondary)]">
             {t.subtitle}
           </p>
         </div>
 
         {/* Banner decorativo con imagen */}
-        <div className="flex justify-center mb-12">
-          <div className="relative w-full max-w-4xl h-32 md:h-48 rounded-lg overflow-hidden border-2 border-[var(--color-border-dark)] shadow-lg">
+        <div className="flex justify-center mb-8 md:mb-12 px-2">
+          <div className="relative w-full max-w-4xl h-24 sm:h-32 md:h-48 rounded-lg overflow-hidden border-2 border-[var(--color-border-dark)] shadow-lg">
             <Image
               src="/images/IMG_3038.JPG"
               alt={lang === 'es' ? 'Animales en refugio' : lang === 'en' ? 'Animals in shelter' : 'Tiere im Tierheim'}
               fill
               className="object-cover"
-              sizes="(max-width: 768px) 100vw, 1200px"
+              sizes="(max-width: 640px) 100vw, (max-width: 768px) 100vw, 1200px"
             />
             <div className="absolute inset-0 bg-gradient-to-r from-black/60 via-black/40 to-black/60 flex items-center justify-center">
               <div className="text-center text-white px-4">
-                <p className="text-lg md:text-2xl font-bold mb-1">{t.bannerTitle}</p>
-                <p className="text-sm md:text-base text-gray-200">{t.bannerSubtitle}</p>
+                <p className="text-base sm:text-lg md:text-2xl font-bold mb-1">{t.bannerTitle}</p>
+                <p className="text-xs sm:text-sm md:text-base text-gray-200">{t.bannerSubtitle}</p>
               </div>
             </div>
           </div>
@@ -349,8 +349,8 @@ function RankingContent() {
 
         {/* Mostrar mensaje de éxito después del pago */}
         {showSuccess && (
-          <div className="max-w-4xl mx-auto mb-8">
-            <div className="bg-[#E8F5E9] border border-[var(--color-secondary)] rounded-md p-4 text-[var(--color-secondary)] text-center">
+          <div className="max-w-4xl mx-auto mb-6 md:mb-8 px-2">
+            <div className="bg-[#E8F5E9] border border-[var(--color-secondary)] rounded-md p-3 md:p-4 text-[var(--color-secondary)] text-center text-sm md:text-base">
               {t.successMessage}
             </div>
           </div>
@@ -376,9 +376,9 @@ function RankingContent() {
 
         {/* Tabla del ranking */}
         {!loading && !error && (
-          <div className="max-w-4xl mx-auto">
-            {/* Contenedor de la tabla */}
-            <div className="bg-[var(--color-background)] border border-[var(--color-border-dark)] rounded-lg overflow-hidden shadow-md">
+          <div className="max-w-4xl mx-auto px-2">
+            {/* Vista de tabla para desktop - oculta en móviles */}
+            <div className="hidden md:block bg-[var(--color-background)] border border-[var(--color-border-dark)] rounded-lg overflow-hidden shadow-md">
               {/* Encabezado de la tabla */}
               <div className="grid grid-cols-3 gap-4 p-4 bg-[var(--color-primary)] border-b border-[var(--color-primary)] font-bold text-white" role="rowheader">
                 <div className="text-center" role="columnheader" aria-label={t.rankAria}>{t.rankHeader}</div>
@@ -484,11 +484,97 @@ function RankingContent() {
               </div>
             </div>
 
+            {/* Vista de tarjetas para móviles - visible solo en móviles */}
+            <div className="md:hidden space-y-3">
+              {ranking.length === 0 ? (
+                <div className="bg-[var(--color-background)] border border-[var(--color-border-dark)] rounded-lg p-8 text-center">
+                  <div className="text-6xl mb-4">🏆</div>
+                  <p className="text-lg text-[var(--color-text)] mb-2 font-bold">{t.emptyTitle}</p>
+                  <p className="text-sm text-[var(--color-text-secondary)] mb-4">{t.emptySubtitle}</p>
+                  <Link
+                    href={homePath}
+                    className="inline-block px-6 py-3 bg-[var(--color-primary)] hover:bg-[var(--color-secondary)] text-white font-bold rounded-md transition-colors mt-4"
+                  >
+                    {t.emptyButton}
+                  </Link>
+                </div>
+              ) : (
+                ranking.map((user, index) => {
+                  const changeClass = user.change === 'up' ? 'rank-up' : 
+                                     user.change === 'down' ? 'rank-down' : 
+                                     user.change === 'new' ? 'rank-new' : ''
+                  
+                  const rankingRowClass = `ranking-row ${changeClass}`
+                  
+                  return (
+                    <div
+                      key={user.id}
+                      className={`bg-[var(--color-background)] border border-[var(--color-border-dark)] rounded-lg p-4 shadow-md ${rankingRowClass} ${
+                        user.rank === 1 ? 'bg-[#FFF9E6] border-l-4 border-l-[#FFD700]' : ''
+                      } ${
+                        user.rank === 2 ? 'bg-[#F5F5F5] border-l-4 border-l-[#C0C0C0]' : ''
+                      } ${
+                        user.rank === 3 ? 'bg-[#FFF4E6] border-l-4 border-l-[#CD7F32]' : ''
+                      }`}
+                    >
+                      <div className="flex items-center justify-between mb-3">
+                        <div className="flex items-center gap-2">
+                          <span className="text-2xl font-bold text-[var(--color-text)]">
+                            {user.rank === 1 && '🥇'}
+                            {user.rank === 2 && '🥈'}
+                            {user.rank === 3 && '🥉'}
+                            {user.rank > 3 && '#'}
+                            {user.rank}
+                          </span>
+                          {user.change === 'up' && (
+                            <span 
+                              className="text-[var(--color-secondary)] text-sm animate-pulse" 
+                              title={t.upTitle}
+                              aria-label={`${user.name} ${t.upAria}`}
+                              role="status"
+                            >
+                              ⬆️
+                            </span>
+                          )}
+                          {user.change === 'down' && (
+                            <span 
+                              className="text-[var(--color-primary)] text-sm" 
+                              title={t.downTitle}
+                              aria-label={`${user.name} ${t.downAria}`}
+                              role="status"
+                            >
+                              ⬇️
+                            </span>
+                          )}
+                          {user.change === 'new' && (
+                            <span 
+                              className="text-[var(--color-primary)] text-sm animate-pulse" 
+                              title={t.newTitle}
+                              aria-label={`${user.name} ${t.newAria}`}
+                              role="status"
+                            >
+                              ✨
+                            </span>
+                          )}
+                        </div>
+                        <div className="text-xl font-bold text-[var(--color-secondary)]">
+                          {user.score.toFixed(2)} €
+                        </div>
+                      </div>
+                      <div className="text-base font-semibold text-[var(--color-text)] truncate" title={user.name}>
+                        {user.name}
+                      </div>
+                    </div>
+                  )
+                })
+              )}
+            </div>
+
             {/* Botón para volver a la home */}
-            <div className="text-center mt-8">
+            <div className="text-center mt-6 md:mt-8 px-2">
               <Link
                 href={homePath}
-                className="inline-block px-6 py-3 bg-[var(--color-primary)] hover:bg-[var(--color-secondary)] text-white font-bold rounded-md transition-colors"
+                className="inline-block px-5 py-2.5 md:px-6 md:py-3 bg-[var(--color-primary)] hover:bg-[var(--color-secondary)] text-white font-bold text-sm md:text-base rounded-md transition-colors"
                 aria-label={t.buttonAria}
               >
                 {t.buttonText}

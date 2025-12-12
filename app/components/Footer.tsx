@@ -78,16 +78,16 @@ export default function Footer() {
   const legalNoticePath = lang === 'es' ? '/aviso-legal' : `/${lang}/aviso-legal`
 
   return (
-    <footer className="border-t border-[var(--color-border)] mt-16 py-12 bg-[var(--color-background-alt)]">
+    <footer className="border-t border-[var(--color-border)] mt-16 py-8 md:py-12 bg-[var(--color-background-alt)]">
       <div className="container mx-auto px-4">
-        <div className="grid md:grid-cols-4 gap-8 mb-8">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8 mb-8">
           {/* Logo y descripción */}
-          <div className="md:col-span-2">
-            <h3 className="text-2xl font-bold text-[var(--color-primary)] mb-4">SANTIVILLA</h3>
-            <p className="text-[var(--color-text-secondary)] text-sm mb-4">
+          <div className="sm:col-span-2 lg:col-span-2">
+            <h3 className="text-xl md:text-2xl font-bold text-[var(--color-primary)] mb-3 md:mb-4">SANTIVILLA</h3>
+            <p className="text-[var(--color-text-secondary)] text-sm mb-3 md:mb-4">
               {t.description}
             </p>
-            <div className="flex items-center gap-2">
+            <div className="flex flex-col sm:flex-row items-start sm:items-center gap-2">
               <span className="text-sm text-[var(--color-text-secondary)]">{t.followUs}</span>
               <a 
                 href="https://youtube.com" 
@@ -103,8 +103,8 @@ export default function Footer() {
           
           {/* Links rápidos */}
           <div>
-            <h4 className="font-bold text-[var(--color-text)] mb-3">{t.navigation}</h4>
-            <ul className="space-y-2 text-sm">
+            <h4 className="font-bold text-[var(--color-text)] mb-2 md:mb-3 text-base md:text-lg">{t.navigation}</h4>
+            <ul className="space-y-1 md:space-y-2 text-sm">
               <li>
                 <Link href={homePath} className="text-[var(--color-text-secondary)] hover:text-[var(--color-primary)] transition-colors">
                   {t.home}
@@ -130,8 +130,8 @@ export default function Footer() {
           
           {/* Información */}
           <div>
-            <h4 className="font-bold text-[var(--color-text)] mb-3">{t.information}</h4>
-            <ul className="space-y-2 text-sm text-[var(--color-text-secondary)]">
+            <h4 className="font-bold text-[var(--color-text)] mb-2 md:mb-3 text-base md:text-lg">{t.information}</h4>
+            <ul className="space-y-1 md:space-y-2 text-sm text-[var(--color-text-secondary)]">
               <li>
                 <a href={boostFormPath} className="hover:text-[var(--color-primary)] transition-colors">
                   {t.contribute}
@@ -148,7 +148,7 @@ export default function Footer() {
                 </Link>
               </li>
               <li>
-                <a href="mailto:contacto@santivilla.com" className="hover:text-[var(--color-primary)] transition-colors">
+                <a href="mailto:contacto@santivilla.com" className="hover:text-[var(--color-primary)] transition-colors break-all">
                   {t.contact}
                 </a>
               </li>
@@ -156,9 +156,9 @@ export default function Footer() {
           </div>
           
           {/* Legal */}
-          <div>
-            <h4 className="font-bold text-[var(--color-text)] mb-3">{t.legal}</h4>
-            <ul className="space-y-2 text-sm text-[var(--color-text-secondary)]">
+          <div className="sm:col-span-2 lg:col-span-1">
+            <h4 className="font-bold text-[var(--color-text)] mb-2 md:mb-3 text-base md:text-lg">{t.legal}</h4>
+            <ul className="space-y-1 md:space-y-2 text-sm text-[var(--color-text-secondary)]">
               <li>
                 <Link href={privacyPath} className="hover:text-[var(--color-primary)] transition-colors">
                   {t.privacy}
@@ -179,8 +179,8 @@ export default function Footer() {
         </div>
         
         {/* Copyright y Do Not Sell */}
-        <div className="border-t border-[var(--color-border)] pt-6">
-          <div className="text-center text-sm text-[var(--color-text-secondary)] mb-2">
+        <div className="border-t border-[var(--color-border)] pt-4 md:pt-6">
+          <div className="text-center text-xs md:text-sm text-[var(--color-text-secondary)] mb-2 px-2">
             <p>{t.copyright}</p>
           </div>
           <div className="text-center text-xs text-[var(--color-text-secondary)]">
