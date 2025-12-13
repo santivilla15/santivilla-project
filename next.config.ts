@@ -1,7 +1,14 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  /* config options here */
+  // Optimizar compilación
+  compiler: {
+    removeConsole: process.env.NODE_ENV === 'production' ? {
+      exclude: ['error', 'warn'], // Mantener console.error y console.warn
+    } : false,
+  },
+  
+  // Optimizar imágenes
   images: {
     remotePatterns: [
       {
@@ -11,7 +18,25 @@ const nextConfig: NextConfig = {
         pathname: '/**',
       },
     ],
+    // Optimizar carga de imágenes
+    formats: ['image/avif', 'image/webp'],
+    minimumCacheTTL: 60,
   },
+  
+  // Desactivar cosas innecesarias durante el build
+  poweredByHeader: false,
+  
+  // Optimizaciones para builds más rápidos
+  experimental: {
+    // Optimizar compilación
+    optimizePackageImports: ['@sentry/nextjs', '@supabase/supabase-js'],
+  },
+  
+  // Optimizar output
+  output: 'standalone',
+  
+  // Reducir tamaño del bundle
+  swcMinify: true,
 };
 
 export default nextConfig;
