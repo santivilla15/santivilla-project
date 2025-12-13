@@ -28,12 +28,18 @@ const nextConfig: NextConfig = {
   
   // Optimizaciones para builds más rápidos
   experimental: {
-    // Optimizar compilación
-    optimizePackageImports: ['@sentry/nextjs', '@supabase/supabase-js'],
+    // Optimizar compilación de paquetes grandes
+    optimizePackageImports: ['@sentry/nextjs', '@supabase/supabase-js', '@stripe/stripe-js'],
+    // Usar Turbopack para builds más rápidos
+    turbo: {
+      rules: {
+        '*.svg': {
+          loaders: ['@svgr/webpack'],
+          as: '*.js',
+        },
+      },
+    },
   },
-  
-  // Optimizar output
-  output: 'standalone',
   
   // Reducir tamaño del bundle
   swcMinify: true,
