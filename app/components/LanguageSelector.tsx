@@ -34,38 +34,38 @@ export default function LanguageSelector() {
     <div className="flex items-center gap-1 md:gap-2 border-l border-[var(--color-border)] pl-3 md:pl-6">
       <Link 
         href={getLocalizedPath('es')} 
-        className={`text-xs md:text-sm transition-colors font-medium ${
+        className={`text-base md:text-lg transition-colors font-medium flex items-center gap-1 ${
           currentLang === 'es' 
             ? 'text-[var(--color-primary)] font-bold' 
             : 'text-[var(--color-text-secondary)] hover:text-[var(--color-primary)]'
         }`}
         aria-label="Cambiar a español"
       >
-        🇪🇸 <span className="hidden sm:inline">ES</span>
+        <span className="text-xl md:text-2xl">🇪🇸</span> <span className="hidden sm:inline text-sm md:text-base">ES</span>
       </Link>
       <span className="text-[var(--color-text-secondary)] hidden sm:inline">|</span>
       <Link 
         href={getLocalizedPath('en')} 
-        className={`text-xs md:text-sm transition-colors font-medium ${
+        className={`text-base md:text-lg transition-colors font-medium flex items-center gap-1 ${
           currentLang === 'en' 
             ? 'text-[var(--color-primary)] font-bold' 
             : 'text-[var(--color-text-secondary)] hover:text-[var(--color-primary)]'
         }`}
         aria-label="Switch to English"
       >
-        🇬🇧 <span className="hidden sm:inline">EN</span>
+        <span className="text-xl md:text-2xl">🇬🇧</span> <span className="hidden sm:inline text-sm md:text-base">EN</span>
       </Link>
       <span className="text-[var(--color-text-secondary)] hidden sm:inline">|</span>
       <Link 
         href={getLocalizedPath('de')} 
-        className={`text-xs md:text-sm transition-colors font-medium ${
+        className={`text-base md:text-lg transition-colors font-medium flex items-center gap-1 ${
           currentLang === 'de' 
             ? 'text-[var(--color-primary)] font-bold' 
             : 'text-[var(--color-text-secondary)] hover:text-[var(--color-primary)]'
         }`}
         aria-label="Zu Deutsch wechseln"
       >
-        🇩🇪 <span className="hidden sm:inline">DE</span>
+        <span className="text-xl md:text-2xl">🇩🇪</span> <span className="hidden sm:inline text-sm md:text-base">DE</span>
       </Link>
     </div>
   )
