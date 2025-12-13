@@ -3,7 +3,6 @@
 // Componente de modal para seleccionar idioma al entrar por primera vez
 import { useEffect, useState } from 'react'
 import { usePathname, useRouter } from 'next/navigation'
-import Link from 'next/link'
 
 const translations = {
   es: {
@@ -46,6 +45,9 @@ export default function LanguageModal() {
   const t = translations[currentLang]
 
   useEffect(() => {
+    // Solo ejecutar en el cliente
+    if (typeof window === 'undefined') return
+
     // Verificar si el usuario ya eligió un idioma anteriormente
     const hasChosenLanguage = localStorage.getItem('language-chosen')
     
@@ -94,6 +96,9 @@ export default function LanguageModal() {
   const handleContinue = () => {
     if (!selectedLang) return
 
+    // Solo ejecutar en el cliente
+    if (typeof window === 'undefined') return
+
     // Guardar la preferencia del usuario
     localStorage.setItem('language-chosen', 'true')
     localStorage.setItem('preferred-language', selectedLang)
@@ -116,6 +121,12 @@ export default function LanguageModal() {
       aria-modal="true"
       aria-labelledby="language-modal-title"
       aria-describedby="language-modal-description"
+      onClick={(e) => {
+        // Cerrar al hacer clic fuera del modal
+        if (e.target === e.currentTarget) {
+          setShowModal(false)
+        }
+      }}
     >
       <div className="bg-[var(--color-background)] border-2 border-[var(--color-primary)] rounded-lg shadow-2xl p-6 md:p-8 max-w-md w-full mx-4 animate-fade-in-up">
         {/* Título */}
@@ -136,56 +147,41 @@ export default function LanguageModal() {
         <div className="space-y-3 mb-6">
           <button
             onClick={() => handleLanguageSelect('es')}
-            className={`w-full p-4 rounded-lg border-2 transition-all duration-200 flex items-center justify-center gap-3 ${
+            className={`w-full p-4 rounded-lg border-2 transition-all flex items-center justify-center gap-3 ${
               selectedLang === 'es'
                 ? 'border-[var(--color-primary)] bg-[var(--color-primary)]/10'
-                : 'border-[var(--color-border-dark)] hover:border-[var(--color-primary)] hover:bg-[var(--color-background-alt)]'
+                : 'border-[var(--color-border-dark)] hover:border-[var(--color-primary)]'
             }`}
             aria-label="Seleccionar español"
           >
-            <span className="text-3xl md:text-4xl">🇪🇸</span>
-            <span className="text-lg md:text-xl font-semibold text-[var(--color-text)]">
-              {t.spanish}
-            </span>
-            {selectedLang === 'es' && (
-              <span className="text-[var(--color-primary)] text-xl">✓</span>
-            )}
+            <span className="text-3xl">🇪🇸</span>
+            <span className="text-lg font-semibold text-[var(--color-text)]">{t.spanish}</span>
           </button>
-
+          
           <button
             onClick={() => handleLanguageSelect('en')}
-            className={`w-full p-4 rounded-lg border-2 transition-all duration-200 flex items-center justify-center gap-3 ${
+            className={`w-full p-4 rounded-lg border-2 transition-all flex items-center justify-center gap-3 ${
               selectedLang === 'en'
                 ? 'border-[var(--color-primary)] bg-[var(--color-primary)]/10'
-                : 'border-[var(--color-border-dark)] hover:border-[var(--color-primary)] hover:bg-[var(--color-background-alt)]'
+                : 'border-[var(--color-border-dark)] hover:border-[var(--color-primary)]'
             }`}
             aria-label="Select English"
           >
-            <span className="text-3xl md:text-4xl">🇬🇧</span>
-            <span className="text-lg md:text-xl font-semibold text-[var(--color-text)]">
-              {t.english}
-            </span>
-            {selectedLang === 'en' && (
-              <span className="text-[var(--color-primary)] text-xl">✓</span>
-            )}
+            <span className="text-3xl">🇬🇧</span>
+            <span className="text-lg font-semibold text-[var(--color-text)]">{t.english}</span>
           </button>
-
+          
           <button
             onClick={() => handleLanguageSelect('de')}
-            className={`w-full p-4 rounded-lg border-2 transition-all duration-200 flex items-center justify-center gap-3 ${
+            className={`w-full p-4 rounded-lg border-2 transition-all flex items-center justify-center gap-3 ${
               selectedLang === 'de'
                 ? 'border-[var(--color-primary)] bg-[var(--color-primary)]/10'
-                : 'border-[var(--color-border-dark)] hover:border-[var(--color-primary)] hover:bg-[var(--color-background-alt)]'
+                : 'border-[var(--color-border-dark)] hover:border-[var(--color-primary)]'
             }`}
-            aria-label="Deutsch auswählen"
+            aria-label="Deutsch wählen"
           >
-            <span className="text-3xl md:text-4xl">🇩🇪</span>
-            <span className="text-lg md:text-xl font-semibold text-[var(--color-text)]">
-              {t.german}
-            </span>
-            {selectedLang === 'de' && (
-              <span className="text-[var(--color-primary)] text-xl">✓</span>
-            )}
+            <span className="text-3xl">🇩🇪</span>
+            <span className="text-lg font-semibold text-[var(--color-text)]">{t.german}</span>
           </button>
         </div>
 
@@ -193,7 +189,7 @@ export default function LanguageModal() {
         <button
           onClick={handleContinue}
           disabled={!selectedLang}
-          className="w-full py-3 md:py-4 bg-[var(--color-primary)] hover:bg-[var(--color-secondary)] text-white font-bold text-base md:text-lg rounded-md transition-colors disabled:bg-[var(--color-border-dark)] disabled:cursor-not-allowed disabled:text-[var(--color-text-secondary)]"
+          className="w-full py-3 bg-[var(--color-primary)] hover:bg-[var(--color-secondary)] text-white font-bold text-lg rounded-lg transition-colors disabled:bg-[var(--color-border-dark)] disabled:cursor-not-allowed disabled:text-[var(--color-text-secondary)]"
           aria-label={t.continue}
         >
           {t.continue}

@@ -86,6 +86,9 @@ export default function RootLayout({
         
         {/* Banner de Cookies (GDPR) */}
         <CookieBanner />
+        
+        {/* Modal de selección de idioma (aparece solo la primera vez) */}
+        <LanguageModal />
       </body>
     </html>
   )
