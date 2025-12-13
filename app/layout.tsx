@@ -8,6 +8,7 @@ import Footer from './components/Footer'
 import Analytics from './components/Analytics'
 import ServiceWorker from './components/ServiceWorker'
 import CookieBanner from './components/CookieBanner'
+import LanguageModal from './components/LanguageModal'
 
 const geistSans = Geist({
   variable: '--font-geist-sans',
