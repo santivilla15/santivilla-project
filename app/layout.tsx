@@ -38,6 +38,7 @@ export const metadata: Metadata = {
     width: 'device-width',
     initialScale: 1,
     maximumScale: 5,
+    // Configuración responsive para móviles
   },
   alternates: {
     languages: {
