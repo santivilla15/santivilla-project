@@ -35,12 +35,6 @@ export const metadata: Metadata = {
     index: true,
     follow: true,
   },
-  viewport: {
-    width: 'device-width',
-    initialScale: 1,
-    maximumScale: 5,
-    // Configuración responsive para móviles
-  },
   alternates: {
     languages: {
       es: baseUrl,
@@ -48,6 +42,13 @@ export const metadata: Metadata = {
       de: `${baseUrl}/de`,
     },
   },
+}
+
+// Viewport debe estar en un export separado en Next.js 16
+export const viewport = {
+  width: 'device-width',
+  initialScale: 1,
+  maximumScale: 5,
 }
 
 export default function RootLayout({
