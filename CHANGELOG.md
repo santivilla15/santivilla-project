@@ -1,5 +1,20 @@
 # Changelog - Santivilla
 
+## [1.1.0] - 2026-06-10
+
+### 🍃 Nueva app: Camilia (dejar el azúcar)
+
+Nueva mini-app móvil en `/azucar` para ayudar a dejar de comer azúcar:
+
+- **Onboarding personalizado:** nombre, motivos para dejar el azúcar y gasto diario estimado en dulces.
+- **Racha sin azúcar:** anillo de progreso con días limpios y cuenta atrás al próximo hito.
+- **Modo SOS de antojos:** respiración guiada 4-7-8, distracciones aleatorias y registro de disparadores (estrés, aburrimiento, etc.).
+- **Check-in diario:** estado de ánimo y registro de día limpio o recaída (sin culpa: una recaída solo reinicia la racha).
+- **Progreso:** calendario de 4 semanas, estadísticas (dinero ahorrado, azúcar evitada, antojos vencidos) y 9 logros desbloqueables.
+- **Aprende:** línea de tiempo de recuperación (día 0 a 90) y 8 consejos prácticos.
+- **Privacidad total:** todos los datos se guardan en `localStorage` del dispositivo; no requiere cuenta ni servidor.
+- **PWA instalable:** manifest propio (`/azucar-manifest.json`), pantalla completa y diseño mobile-first.
+
 ## [1.0.0] - 2024-12-07
 
 ### ✨ Nuevo Modelo de Comisiones (Opción 2)

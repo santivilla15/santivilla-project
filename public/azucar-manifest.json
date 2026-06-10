@@ -1,0 +1,21 @@
+{
+  "name": "Camilia — Deja el azúcar día a día",
+  "short_name": "Camilia",
+  "description": "Camilia, tu compañera para dejar el azúcar cuando te cuesta: racha, modo SOS para antojos, progreso y consejos.",
+  "start_url": "/azucar",
+  "scope": "/azucar",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#f3f8f6",
+  "theme_color": "#14b8a6",
+  "lang": "es",
+  "categories": ["health", "lifestyle", "medical"],
+  "icons": [
+    {
+      "src": "/images/azucar-icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}

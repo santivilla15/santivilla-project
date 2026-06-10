@@ -1,0 +1,238 @@
+/* Estilos propios de la app "Camilia" (dejar el azúcar).
+   Se aíslan bajo .azucar-app para no chocar con el resto del sitio. */
+
+.azucar-app {
+  --sa-bg: #f3f8f6;
+  --sa-surface: #ffffff;
+  --sa-primary: #14b8a6; /* teal */
+  --sa-primary-dark: #0f766e;
+  --sa-accent: #f97362; /* coral */
+  --sa-text: #14302b;
+  --sa-text-soft: #5b736c;
+  --sa-border: #e1ece8;
+  --sa-good: #16a34a;
+  --sa-warn: #f59e0b;
+  --sa-shadow: 0 8px 30px rgba(16, 118, 110, 0.08);
+
+  background: var(--sa-bg);
+  color: var(--sa-text);
+  min-height: 100vh;
+  font-family: var(--font-geist-sans), system-ui, sans-serif;
+}
+
+.azucar-app * {
+  box-sizing: border-box;
+}
+
+/* Contenedor tipo "pantalla de móvil" centrado en escritorio */
+.sa-shell {
+  max-width: 480px;
+  margin: 0 auto;
+  min-height: 100vh;
+  background: var(--sa-bg);
+  position: relative;
+  display: flex;
+  flex-direction: column;
+}
+
+.sa-content {
+  flex: 1;
+  padding: 20px 18px calc(96px + env(safe-area-inset-bottom, 0px));
+}
+
+.sa-card {
+  background: var(--sa-surface);
+  border: 1px solid var(--sa-border);
+  border-radius: 20px;
+  padding: 18px;
+  box-shadow: var(--sa-shadow);
+}
+
+.sa-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  border: none;
+  border-radius: 14px;
+  padding: 14px 18px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: transform 0.08s ease, opacity 0.15s ease, background 0.15s ease;
+  font-family: inherit;
+}
+.sa-btn:active {
+  transform: scale(0.97);
+}
+.sa-btn-primary {
+  background: var(--sa-primary);
+  color: #fff;
+}
+.sa-btn-primary:hover {
+  background: var(--sa-primary-dark);
+}
+.sa-btn-accent {
+  background: var(--sa-accent);
+  color: #fff;
+}
+.sa-btn-ghost {
+  background: transparent;
+  color: var(--sa-primary-dark);
+  border: 1px solid var(--sa-border);
+}
+.sa-btn-block {
+  width: 100%;
+}
+.sa-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* Píldoras seleccionables (motivos, disparadores) */
+.sa-chip {
+  border: 1px solid var(--sa-border);
+  background: var(--sa-surface);
+  color: var(--sa-text);
+  border-radius: 999px;
+  padding: 9px 14px;
+  font-size: 14px;
+  cursor: pointer;
+  transition: all 0.12s ease;
+  font-family: inherit;
+}
+.sa-chip[data-active='true'] {
+  background: var(--sa-primary);
+  border-color: var(--sa-primary);
+  color: #fff;
+}
+
+/* Navegación inferior fija */
+.sa-bottomnav {
+  position: fixed;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100%;
+  max-width: 480px;
+  background: var(--sa-surface);
+  border-top: 1px solid var(--sa-border);
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  padding: 8px 6px calc(8px + env(safe-area-inset-bottom, 0px));
+  z-index: 40;
+}
+.sa-navitem {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 3px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 6px 0;
+  color: var(--sa-text-soft);
+  font-size: 11px;
+  font-weight: 600;
+  font-family: inherit;
+}
+.sa-navitem[data-active='true'] {
+  color: var(--sa-primary-dark);
+}
+.sa-navitem .sa-navicon {
+  font-size: 22px;
+  line-height: 1;
+}
+
+/* Anillo de progreso de la racha */
+.sa-ring {
+  display: grid;
+  place-items: center;
+  position: relative;
+}
+
+/* Animación de respiración para el SOS */
+.sa-breathe {
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 50% 40%, #5eead4, #14b8a6);
+  display: grid;
+  place-items: center;
+  color: #fff;
+  font-weight: 700;
+  font-size: 20px;
+  box-shadow: 0 0 60px rgba(20, 184, 166, 0.4);
+  animation: sa-breathe-cycle 8s ease-in-out infinite;
+}
+@keyframes sa-breathe-cycle {
+  0%,
+  100% {
+    transform: scale(0.7);
+  }
+  50% {
+    transform: scale(1);
+  }
+}
+
+.sa-fade-in {
+  animation: sa-fade-in 0.4s ease-out;
+}
+@keyframes sa-fade-in {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Cabecera de sección */
+.sa-h1 {
+  font-size: 26px;
+  font-weight: 800;
+  letter-spacing: -0.5px;
+  margin: 0;
+}
+.sa-h2 {
+  font-size: 19px;
+  font-weight: 700;
+  margin: 0;
+}
+.sa-muted {
+  color: var(--sa-text-soft);
+}
+
+/* Mini calendario */
+.sa-calendar {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 6px;
+}
+.sa-day {
+  aspect-ratio: 1;
+  border-radius: 10px;
+  display: grid;
+  place-items: center;
+  font-size: 12px;
+  font-weight: 600;
+  background: var(--sa-bg);
+  color: var(--sa-text-soft);
+  border: 1px solid var(--sa-border);
+}
+.sa-day[data-status='clean'] {
+  background: var(--sa-primary);
+  color: #fff;
+  border-color: var(--sa-primary);
+}
+.sa-day[data-status='slip'] {
+  background: #fde2dd;
+  color: var(--sa-accent);
+  border-color: #f9c8c0;
+}
+.sa-day[data-today='true'] {
+  outline: 2px solid var(--sa-accent);
+  outline-offset: 1px;
+}

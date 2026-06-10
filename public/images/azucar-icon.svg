@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
+  <defs>
+    <linearGradient id="g" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#5eead4"/>
+      <stop offset="1" stop-color="#0f766e"/>
+    </linearGradient>
+  </defs>
+  <rect width="512" height="512" rx="112" fill="url(#g)"/>
+  <!-- Hoja: símbolo de una vida más natural, sin azúcar -->
+  <path d="M256 120c-86 0-150 64-150 168 0 60 40 104 96 104 84 0 138-92 154-228 2-18-12-32-30-32-22-2-46 0-70 0z"
+        fill="#ffffff" opacity="0.96"/>
+  <path d="M196 360c30-78 70-118 130-150" stroke="#0f766e" stroke-width="14" stroke-linecap="round" fill="none"/>
+</svg>

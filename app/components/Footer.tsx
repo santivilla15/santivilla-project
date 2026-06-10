@@ -64,6 +64,8 @@ const translations = {
 
 export default function Footer() {
   const pathname = usePathname()
+  // La app "Camilia" no muestra el footer del sitio principal
+  if (pathname.startsWith('/azucar')) return null
   const lang = pathname.startsWith('/en') ? 'en' : pathname.startsWith('/de') ? 'de' : 'es'
   const t = translations[lang]
   

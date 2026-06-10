@@ -47,9 +47,11 @@ const translations = {
 
 export default function Navigation() {
   const pathname = usePathname()
+  const [isMenuOpen, setIsMenuOpen] = useState(false)
+  // La app "Camilia" usa su propia navegación a pantalla completa
+  if (pathname.startsWith('/azucar')) return null
   const lang = pathname.startsWith('/en') ? 'en' : pathname.startsWith('/de') ? 'de' : 'es'
   const t = translations[lang]
-  const [isMenuOpen, setIsMenuOpen] = useState(false)
   
   // Obtener las rutas correctas según el idioma
   const homePath = lang === 'es' ? '/' : `/${lang}`
