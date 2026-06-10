@@ -30,10 +30,12 @@ const nextConfig: NextConfig = {
   experimental: {
     // Optimizar compilación de paquetes grandes (tree-shaking mejorado)
     optimizePackageImports: ['@sentry/nextjs', '@supabase/supabase-js', '@stripe/stripe-js'],
-    // Configurar root de Turbopack para evitar warnings
-    turbo: {
-      root: process.cwd(),
-    },
+  },
+
+  // Configurar root de Turbopack para evitar warnings
+  // (en Next 16 es una opción de nivel raíz, no experimental)
+  turbopack: {
+    root: process.cwd(),
   },
   
   // Optimizar output para producción

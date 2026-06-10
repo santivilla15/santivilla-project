@@ -5,7 +5,7 @@ import { usePathname } from 'next/navigation'
 
 // Configuración de videos (puedes agregar más aquí)
 // Formato: ID del video de YouTube (la parte después de v= en la URL)
-const YOUTUBE_VIDEOS = [
+const YOUTUBE_VIDEOS: string[] = [
   // Ejemplo: 'dQw4w9WgXcQ'
   // Agrega los IDs de tus videos aquí cuando los tengas
 ]

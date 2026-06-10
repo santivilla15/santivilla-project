@@ -41,3 +41,6 @@ if (sentryDsn) {
   })
 }
 
+
+// Hace que el archivo sea un módulo para poder importarlo desde instrumentation.ts
+export {}
